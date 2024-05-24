@@ -3,13 +3,16 @@ import Logo from "./Logo";
 import { IoSearchSharp } from "react-icons/io5";
 import { FaUserLarge } from "react-icons/fa6";
 import { BsCart4 } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="h-16 shadow-md">
+    <header className="h-16 shadow-md bg-white">
       <div className="h-full container mx-auto flex items-center px-4 justify-between">
         <div className="">
+          <Link to = {"/"}>
           <Logo w={90} h={50} />
+          </Link>
         </div>
         <div className="hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow-md pl-3">
           <input
@@ -34,7 +37,7 @@ const Header = () => {
             </div>
           </div>
           <div>
-            <button className="px-3 py-1 rounded-full text-white bg-red-500 hover:bg-red-700 flex items-center justify-center ">LogIn</button>
+            <Link to={"/login"} className="px-3 py-1 rounded-full text-white bg-red-500 hover:bg-red-700 flex items-center justify-center ">LogIn</Link>
           </div>
         </div>
       </div>
