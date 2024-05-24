@@ -9,16 +9,16 @@ const Login = () => {
     return (
         <section id='login'>
             <div className='mx-auto container p-4'>
-                <div className=' bg-white p-2 py-5 w-full max-w-md mx-auto'>
+                <div className=' bg-white p-4 w-full max-w-sm mx-auto'>
                     <div className='w-20 h-20 mx-auto'>
                         <img src={loginIcons} alt='login icons' />
                     </div>
-                    <form>
+                    <form className='pt-6'>
                         <div className='grid'>
                             <label>
                                 Email :
                             </label>
-                            <div className='bg-slate-200 p-2'>
+                            <div className='bg-slate-200 p-2 rounded'>
                                 <input type='email' placeholder='enter email' className='w-full h-full outline-none bg-transparent'></input>
                             </div>
                         </div>
@@ -27,7 +27,7 @@ const Login = () => {
                             <label>
                                 Password :
                             </label>
-                            <div className='bg-slate-200 p-2 flex'>
+                            <div className='bg-slate-200 p-2 flex rounded'>
                                 <input type={showPassword ?  "text" : "password"} placeholder='enter password' className='w-full h-full outline-none bg-transparent'></input>
                                 <div className='cursor-pointer text-xl' onClick={()=>setShowPassword((preve)=>!preve)}>
                                     <span>
@@ -46,13 +46,18 @@ const Login = () => {
                                 </div>
                             </div>
                             <Link to={'/forgot-password'} className='block w-fit ml-auto hover:underline hover:text-red-600'>
-                                Forgot password
+                                Forgot password ?
                             </Link>
                         </div>
-                        <button className='bg-red-600 text-white fu px-6 py-2 w-full max-w-[150px] rounded-full hover:scale-110 transition-all mx-auto block mt-6'>
-                            login
+                        <button className='bg-red-600 hover:bg-red-700 text-white fu px-6 py-2 w-full max-w-[150px] rounded-full hover:scale-110 transition-all mx-auto block mt-6'>
+                            Login
                         </button>
                     </form>
+                    <p className='my-5'>
+                        Don't have account ? <Link to={"/sign-up"} className='text-red-600 hover:text-red-300 hover:underline'>
+                         Sign up
+                        </Link>
+                    </p>
                 </div>
             </div>
         </section>
