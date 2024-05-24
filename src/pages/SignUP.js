@@ -3,6 +3,7 @@ import loginIcons from '../assest/signin.gif'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import imageTobase64 from '../helpers/imageTobase64';
 
 const SignUP = () => {
   const[showPassword,setShowPassword] = useState(false)
@@ -24,13 +25,21 @@ const SignUP = () => {
           }
       })
   }
-  const handleUploadPic =(e)=>{
+  const handleUploadPic =async(e)=>{
 const file=e.target.files[0]
 
-console.log("file",file)
+const imagePic = await imageTobase64(file)
+
+setData((preve)=>{
+  return{
+    ...preve,
+    profilePic: imagePic
+  }
+}
+)
   }
   
-  const handleSubmit = (e) =>{
+  const handleSubmit = async(e) =>{
      e.preventDefault()
   }
 
@@ -41,7 +50,7 @@ console.log("file",file)
         <div className=' bg-white p-4 w-full max-w-sm mx-auto'>
             <div className='w-20 h-20 mx-auto relative overflow-hidden rounded-full'>
             <div>
-            <img src={loginIcons} alt='login icons' />
+            <img src={data.profilePic||loginIcons} alt='login icons' />
             </div>
             <form>
               <label>
@@ -68,6 +77,7 @@ console.log("file",file)
                         name='name' 
                         value={data.name}
                         onChange={handleOnChange}
+                        required
                         className='w-full h-full outline-none bg-transparent'>
 
                         </input>
@@ -84,6 +94,7 @@ console.log("file",file)
                         name='email' 
                         value={data.email}
                         onChange={handleOnChange}
+                        required
                         className='w-full h-full outline-none bg-transparent'>
 
                         </input>
@@ -101,6 +112,7 @@ console.log("file",file)
                          value={data.password}
                          name='password'
                          onChange={handleOnChange}
+                         required
                          className='w-full h-full outline-none bg-transparent'>
 
                          </input>
@@ -133,6 +145,7 @@ console.log("file",file)
                          value={data.confirmPassword}
                          name='confirmPassword'
                          onChange={handleOnChange}
+                         required
                          className='w-full h-full outline-none bg-transparent'>
 
                          </input>
