@@ -13,7 +13,7 @@ function SvgComponent(props) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="190pt"
-      height="65.000000pt"
+      height="58.000000pt"
       viewBox="0 0 487.000000 95.000000"
       {...props}
     >
