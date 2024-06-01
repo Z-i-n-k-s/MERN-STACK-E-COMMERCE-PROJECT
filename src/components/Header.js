@@ -11,7 +11,7 @@ const Header = () => {
       <div className="h-full container mx-auto flex items-center px-4 justify-between">
         <div className="">
           <Link to = {"/"}>
-          <Logo w={90} h={50} />
+          <Logo w={170} h={60} />
           </Link>
         </div>
         <div className="hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow-md pl-3">
@@ -25,7 +25,7 @@ const Header = () => {
           </div>
         </div>
         <div className="flex items-center gap-7">
-          <div className="text-3xl cursor-pointer">
+          <div className="text-2xl cursor-pointer">
             <FaUserLarge />
           </div>
           <div className="text-2xl relative">
