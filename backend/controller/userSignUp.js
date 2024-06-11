@@ -14,7 +14,7 @@ async function userSignUpController(req,res){
         console.log("user",user)
 
         if(user){
-            throw new Error("Already user exits.")
+            throw new Error("Email is already registered")
         }
 
         if(!email){
