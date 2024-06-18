@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsCart4 } from "react-icons/bs";
 import { FaUserLarge } from "react-icons/fa6";
 import { IoSearchSharp } from "react-icons/io5";
@@ -12,8 +12,9 @@ import { setUserDetails } from '../store/userSlice'
 const Header = () => {
   const user = useSelector(state => state?.user?.user)
   const dispatch = useDispatch()
+  const [menuDisplay,setMenuDisplay]=useState(false)
   console.log("user header", user)
-
+  
 
 
   const handelLogout = async () => {
@@ -49,17 +50,33 @@ const Header = () => {
           </div>
         </div>
         <div className="flex items-center gap-7">
-          <div className="text-2xl cursor-pointer">
+            
+            <div className="relative flex justify-center">
+            <div className="text-2xl cursor-pointer relative flex justify-center" onClick={()=>setMenuDisplay(preve => !preve )}>
             {
               user?.profilePic ? (
                 <img src={user?.profilePic} className="w-8 h-8 rounded-full" alt={user?.name} />
               ) : (
                 <FaUserLarge />
               )
-
+              
             }
 
           </div>
+
+
+              {
+                menuDisplay &&(
+                  <div className="absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded">
+                  <nav>
+                    <Link to={"admin-panel"} className="whitespace-nowrap hover:bg-slate-100 p-2">Admin Panel</Link>
+                  </nav>
+              </div>
+                )
+              }
+          
+            </div>
+
           <div className="text-2xl relative">
             <span>
               <BsCart4 />
@@ -86,3 +103,9 @@ const Header = () => {
 };
 
 export default Header;
+
+
+
+//for hovering
+//group
+// hidden group-hover:block
