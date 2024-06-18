@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser');
 const cors = require('cors')
 
 require('dotenv').config()
@@ -11,11 +12,14 @@ app.use(cors({
     origin : process.env.FRONTEND_URL,
     credentials : true,
 }))
+app.use(bodyParser.json({ limit: '500mb' }));
+app.use(bodyParser.urlencoded({ extended: true,parameterLimit:100000, limit: '500mb' }));
 app.use(express.json())
 app.use(cookieParser())
 
 
 app.use("/api",router)
+
 
 const PORT = 8080 || process.env.PORT
 

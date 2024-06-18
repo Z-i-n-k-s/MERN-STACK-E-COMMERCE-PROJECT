@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
-import loginIcons from '../assest/signin.gif'
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
+import React, { useState } from 'react';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
-import imageTobase64 from '../helpers/imageTobase64';
-import SummaryApi from '../common';
 import { toast } from 'react-toastify';
+import loginIcons from '../assest/signin.gif';
+import SummaryApi from '../common';
+import imageTobase64 from '../helpers/imageTobase64';
 
 const SignUP = () => {
   const[showPassword,setShowPassword] = useState(false)
@@ -56,24 +55,26 @@ setData((preve)=>{
             },
             body : JSON.stringify(data)
     
-         })
+        })
     
-         const dataApi = await dataResponse.json()
+        const dataApi = await dataResponse.json()
     
-         console.log("data",dataApi)
+        console.log("data",dataApi)
 
-         if(dataApi.success){
+        if(dataApi.success){
             toast.success(dataApi.message)
             navigate("/login")
 
-         }
-         if(dataApi.error){
+        }
+        if(dataApi.error){
             toast.error(dataApi.message)
-         }
+        }
 
 
      }else{
-        console.log("Please check password and confirm password")
+        //console.log("Please check password and confirm password")
+        //throw new Error("Please check password and confirm password")
+        toast("Please check password and confirm password")
      }
      
      
