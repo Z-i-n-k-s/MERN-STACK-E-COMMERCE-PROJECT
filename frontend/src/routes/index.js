@@ -4,6 +4,11 @@ import ForgotPassword from "../pages/ForgotPassword";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUP from "../pages/SignUP";
+import Adminpanel from "../pages/Adminpanel";
+import AllUsers from "../pages/AllUsers";
+import AllProducts from "../pages/AllProducts";
+
+
 
 
 
@@ -27,7 +32,22 @@ const router  = createBrowserRouter([
             {
                 path: "sign-up",
                 element: <SignUP/>
-            }
+            },
+            {
+                path: "admin-panel",
+                element: <Adminpanel/>,
+                children:[
+                    {
+                        path: "all-users",
+                        element: <AllUsers/>
+                    },
+                    {
+                        path: "all-products",
+                        element: <AllProducts/>
+                    }
+                ]
+            },
+
         ]
         
     }

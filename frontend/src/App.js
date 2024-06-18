@@ -27,7 +27,7 @@ function App() {
 
 
 
-    console.log("data-user", dataResponse);
+   // console.log("data-user", dataResponse);
   };
   useEffect(() => {
     // user details
