@@ -24,6 +24,10 @@ const SummaryApi = {
         url : `${backendDomin}/api/all-user`,
         method: 'get'
     },
+    userSearch:{
+       url : `${backendDomin}/api/user-search`,
+        method: 'post'
+    },
     updateUser:{ 
 
         url : `${backendDomin}/api/update-user`,

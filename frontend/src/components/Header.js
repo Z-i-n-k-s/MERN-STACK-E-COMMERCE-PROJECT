@@ -40,7 +40,7 @@ const Header = () => {
             <Logo w={170} h={60} />
           </Link>
         </div>
-        <div className="hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow-md pl-3">
+        <div className="hidden lg:flex items-center w-full justify-between max-w-sm border-2 rounded-full focus-within:shadow-md pl-3">
           <input
             type="text"
             placeholder="Find your items...."
