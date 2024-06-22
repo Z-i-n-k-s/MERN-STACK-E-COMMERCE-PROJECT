@@ -16,6 +16,7 @@ const ChangeUserRole = ({
 
     const handleOnChangeSelect= (e)=>{
         setUserRole(e.target.value)
+        
         console.log(e.target.value) 
     }
 
@@ -55,8 +56,28 @@ const updateUserRole = async()=>{
         <h1 className='pb-4 text-lg font-medium'>ChangeUserRole</h1>
           
 
-          <p>Name : {name}</p>
-          <p>Email : {email}</p>
+          <p className='p-2 text-lg'>Current Name : {name}</p>
+          <input 
+                        type='email' 
+                        placeholder='enter new name'
+                        name='newName' 
+                        // value={data.email}
+                        // onChange={handleOnChange}
+                        // required
+                        className="w-full h-full p-1 border-solid border-2 border-black rounded-lg bg-white ">
+
+                        </input>
+          <p className='text-lg p-2'>Current Email : {email}</p>
+          <input 
+                        type='email' 
+                        placeholder='enter new email'
+                        name='newEmail' 
+                        // value={data.email}
+                        // onChange={handleOnChange}
+                        // required
+                        className="w-full h-full p-1 border-solid border-2 border-black rounded-lg bg-white ">
+
+                        </input>
 
           <div className='flex items-center justify-between my-4'>
           <p>
