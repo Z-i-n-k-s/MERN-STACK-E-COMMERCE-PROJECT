@@ -11,7 +11,7 @@ const AllProducts = () => {
             </div>
         {/**upload product component */}
         {
-            openUploadProduct &&(
+            openUploadProduct && (
                 <UploadProduct onClose={()=>setOpenUploadProduct(false)}/>
             )
         }
