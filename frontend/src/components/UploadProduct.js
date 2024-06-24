@@ -17,7 +17,7 @@ const UploadProduct = ({
         price:"",
         selling:""
     })
-    const[openFullScreenImage,setOpenFullScreenImage]=useState(false)
+    const[openFullScreenImage,setOpenFullScreenImage] = useState(false)
     const [fullScreenImage,setFullScreenImage] = useState("")
    
     const handleOnChange=(e)=>{
@@ -26,12 +26,12 @@ const UploadProduct = ({
 
         const handleUploadProduct = async(e)=>{
             const file = e.target.files[0]
-            const uploadImageCloudinary =await uploadImage(file)
+            const uploadImageCloudinary =  await uploadImage(file)
 
             setData((preve)=>{
                 return{
                     ...preve,
-                    productImage:[ ...preve.productImage,uploadImageCloudinary.url]
+                    productImage :[ ...preve.productImage,uploadImageCloudinary.url]
 
                 }
             })
@@ -85,7 +85,7 @@ const UploadProduct = ({
 <label htmlFor='uploadImageInput'>
 <div className='p-2 bg-slate-100 border rounded h-32 w-full flex justify-center items-center cursor-pointer'>
 
-    <div className= 'bg-slate-500 flex justify-center items-center flex-col gap-2'> 
+    <div className= 'text-slate-500 flex justify-center items-center flex-col gap-2'> 
 <span className='text-4xl'><FaCloudUploadAlt/></span>
 <p className='text-sm'>Upload Product Image</p>
 <input type='file' id='uploadImageInput'className='hidden' onChange={handleUploadProduct}/>
@@ -111,17 +111,17 @@ const UploadProduct = ({
                         setFullScreenImage(el)
                     }}/>  
                 )
-               })
+                 })
         }
             </div> 
-        ) :(
+        ) : (
             <p className='text-red-600 text-xs'>*Please Upload Product image</p>
         )
     }
     
         </div>
 
-        <button className='px-2 py-2 bg-red-600 text-white hover:bg-red-700 mb-10'>
+        <button className='px-2 py-2 bg-red-600 text-white mb-10 hover:bg-red-700 '>
             Upload Product
         </button>
      </form>

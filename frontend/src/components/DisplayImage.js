@@ -1,9 +1,9 @@
 import React from 'react'
 
-const DisplayImage = (
+const DisplayImage = ({
     imgUrl,
     onClose
-) => {
+}) => {
   return (
     <div className='flex justify-center p-4'>
         <img src={imgUrl} className='w-full h-full'/>
