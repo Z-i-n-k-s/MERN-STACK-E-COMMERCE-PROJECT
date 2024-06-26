@@ -60,7 +60,6 @@ const Login = () => {
 
     }
 
-    console.log("data login",data)
     return (
         <section id='login'>
             <div className='mx-auto container p-4'>
