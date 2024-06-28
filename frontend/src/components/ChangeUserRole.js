@@ -11,11 +11,24 @@ const ChangeUserRole = ({
     userId, 
     onClose,
     callFunc,
+   
 }) => {
     const [userRole,setUserRole]= useState(role)
+    const [userNewName,setUserNewName]= useState(name)
+    const [userNewEmail,setUserNewEmail]= useState(email)
 
     const handleOnChangeSelect= (e)=>{
         setUserRole(e.target.value)
+        
+        console.log(e.target.value) 
+    }
+    const handleOnChangeName= (e)=>{
+        setUserNewName(e.target.value)
+        
+        console.log(e.target.value) 
+    }
+    const handleOnChangeEmail= (e)=>{
+        setUserNewEmail(e.target.value)
         
         console.log(e.target.value) 
     }
@@ -29,7 +42,9 @@ const updateUserRole = async()=>{
             },
             body: JSON.stringify({
                 userId : userId,
-                role: userRole
+                role: userRole,
+                name : userNewName,
+                email : userNewEmail,
             })
             })
                 const responseData = await fetchResponse.json()
@@ -58,26 +73,28 @@ const updateUserRole = async()=>{
 
           <p className='p-2 text-lg'>Current Name : {name}</p>
           <input 
-                        type='email' 
+                        type='text' 
                         placeholder='enter new name'
                         name='newName' 
-                        // value={data.email}
-                        // onChange={handleOnChange}
+                         value={userNewName.newName}
+                         onChange={handleOnChangeName}
                         // required
                         className="w-full h-full p-1 border-solid border-2 border-black rounded-lg bg-white ">
 
                         </input>
           <p className='text-lg p-2'>Current Email : {email}</p>
+          <form>
           <input 
                         type='email' 
                         placeholder='enter new email'
                         name='newEmail' 
-                        // value={data.email}
-                        // onChange={handleOnChange}
+                        value={userNewEmail.newEmail}
+                         onChange={handleOnChangeEmail}
                         // required
                         className="w-full h-full p-1 border-solid border-2 border-black rounded-lg bg-white ">
 
                         </input>
+                        </form>
 
           <div className='flex items-center justify-between my-4'>
           <p>

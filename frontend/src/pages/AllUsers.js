@@ -136,7 +136,7 @@ if(dataApi.error){
           <td>{el?.name}</td>
           <td>{el?.email}</td>
           <td>{el?.role}</td>
-          <td>{moment(el?.createdAt).format("LLLL")}</td>
+          <td>{moment(el?.createdAt).format("LLL")}</td>
           <td>
             <div className="flex justify-evenly">
             <button
