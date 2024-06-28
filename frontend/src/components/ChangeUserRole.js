@@ -53,7 +53,7 @@ const updateUserRole = async()=>{
 
 
 
-        <h1 className='pb-4 text-lg font-medium'>ChangeUserRole</h1>
+        <h1 className='pb-4 text-lg font-medium'>Change User Details</h1>
           
 
           <p className='p-2 text-lg'>Current Name : {name}</p>
@@ -101,7 +101,7 @@ const updateUserRole = async()=>{
 
 
 
-          <button className='w-fit mx-auto block  py-1 px-3 rounded-full bg-red-600 text-white hover:bg-red-700' onClick={updateUserRole} >Change role</button>
+          <button className='w-fit mx-auto block  py-1 px-3 rounded-full bg-red-600 text-white hover:bg-red-700' onClick={updateUserRole} > Change </button>
       </div>
     </div>
   )
