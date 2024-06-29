@@ -34,6 +34,12 @@ const SummaryApi = {
         method: 'post'
     
     },
+    deleteUser:{ 
+
+        url : `${backendDomin}/api/delete-user`,
+        method: 'post'
+    
+    },
 }
 
 export default SummaryApi

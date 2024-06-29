@@ -59,66 +59,53 @@ const updateUserRole = async()=>{
 }
 
   return (
-    <div className='fixed top-0 bottom-0 left-0 right-0 w-full z-10 flex justify-between items-center bg-slate-200 bg-opacity-50'>
-
-      <div className='mx-auto bg-white shadow-md p-4 w-full max-w-sm'>
-            <button className='block ml-auto' onClick={onClose}>
-            <FaWindowClose />
-                </button>    
-
-
-
-        <h1 className='pb-4 text-lg font-medium'>Change User Details</h1>
-          
-
-          <p className='p-2 text-lg'>Current Name : {name}</p>
-          <input 
-                        type='text' 
-                        placeholder='enter new name'
-                        name='newName' 
-                         value={userNewName.newName}
-                         onChange={handleOnChangeName}
-                        // required
-                        className="w-full h-full p-1 border-solid border-2 border-black rounded-lg bg-white ">
-
-                        </input>
-          <p className='text-lg p-2'>Current Email : {email}</p>
-          <form>
-          <input 
-                        type='email' 
-                        placeholder='enter new email'
-                        name='newEmail' 
-                        value={userNewEmail.newEmail}
-                         onChange={handleOnChangeEmail}
-                        // required
-                        className="w-full h-full p-1 border-solid border-2 border-black rounded-lg bg-white ">
-
-                        </input>
-                        </form>
-
-          <div className='flex items-center justify-between my-4'>
-          <p>
-            Role :
-          </p>
-        <select className='border px-4 py-1' value={userRole} onChange={handleOnChangeSelect}>
-            {
-                Object.values(ROLE).map(el=>{
-                    return(
-                        <option value={el} key={el}>
-                        {
-                            el
-                        } 
-                        </option>
-                    )
-                })
-            }
-            
-        </select>
+    <div className="fixed top-0 bottom-0 left-0 right-0 w-full z-10 flex justify-center items-center bg-slate-200 bg-opacity-50">
+      <div className="relative bg-white shadow-lg p-6 w-full max-w-lg rounded-lg">
+        <button className="absolute top-3 right-3 text-gray-500 hover:text-gray-700" onClick={onClose}>
+          <FaWindowClose size={24} />
+        </button>
+        <h1 className="pb-4 text-2xl font-semibold text-center text-gray-800">Change User Details</h1>
+        <div className="text-gray-700 w-full">
+          <p className="p-2 text-lg"><span className="font-medium">Current Name:</span> {name}</p>
+          <input
+            type="text"
+            placeholder="Enter new name"
+            name="newName"
+            value={userNewName.newName}
+            onChange={handleOnChangeName}
+            className="w-full p-2 border border-gray-300 rounded-lg bg-white mb-4"
+          />
+          <p className="p-2 text-lg"><span className="font-medium">Current Email:</span> {email}</p>
+          <input
+            type="email"
+            placeholder="Enter new email"
+            name="newEmail"
+            value={userNewEmail.newEmail}
+            onChange={handleOnChangeEmail}
+            className="w-full p-2 border border-gray-300 rounded-lg bg-white mb-4"
+          />
+          <div className="flex items-center justify-between my-4">
+            <p className="text-lg"><span className="font-medium">Role:</span></p>
+            <select className="border px-4 py-2 rounded-lg" value={userRole} onChange={handleOnChangeSelect}>
+              {Object.values(ROLE).map((el) => (
+                <option value={el} key={el}>
+                  {el}
+                </option>
+              ))}
+            </select>
           </div>
-
-
-
-          <button className='w-fit mx-auto block  py-1 px-3 rounded-full bg-red-600 text-white hover:bg-red-700' onClick={updateUserRole} > Change </button>
+        </div>
+        <div className="flex justify-center mt-4">
+          <button
+            className="bg-green-400 text-black px-4 py-2 rounded-full shadow hover:bg-green-700 hover:text-white transition duration-300"
+            onClick={updateUserRole}
+          >
+            Change
+          </button>
+          <button className="bg-gray-300 text-gray-800 px-4 py-2 rounded-full shadow ml-4 hover:bg-gray-400 transition duration-300" onClick={onClose}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   )

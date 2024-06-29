@@ -10,6 +10,7 @@ const userLogout = require('../controller/userLogout')
 const allUsers = require('../controller/allUsers')
 const updateUser = require('../controller/updateUser')
 const userSearchController = require('../controller/userSearch')
+const userDeleteController = require('../controller/userDelete')
 
 router.post("/signup",userSignUpController)
 router.post("/signin",userSignInController)
@@ -21,6 +22,7 @@ router.get("/userLogout",userLogout)
 router.get("/all-user",authToken,allUsers)
 router.post("/user-search",userSearchController)
 router.post("/update-user",authToken,updateUser)
+router.post("/delete-user",authToken,userDeleteController)
 
 
 

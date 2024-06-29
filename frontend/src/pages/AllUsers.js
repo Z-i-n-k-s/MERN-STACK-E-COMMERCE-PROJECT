@@ -8,12 +8,14 @@ import ChangeUserRole from "../components/ChangeUserRole";
 import DisplayUserDetails from "../components/DisplayUserDetails";
 import { ImProfile } from "react-icons/im";
 import Context from "../context";
+import DeleteUserDetails from "../components/DeleteUserDetails";
 
 const AllUsers = () => {
   const [showOneUser,setShowOneUser] = useState(false)
   const [allUser, setAllUsers] = useState([]);
   const [oneUser, setOneUsers] = useState(null);
   const [openUpdateRole, setOpenUpdateRole] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [openUserDetails, setOpenUserDetails] = useState(false);
   const [updateUserDetails, setUpdateUserDetails] = useState({
     email: "",
@@ -148,7 +150,12 @@ if(dataApi.error){
             >
               <FiEdit />
             </button>
-            <button className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-red-600 hover:text-white">
+            <button className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-red-600 hover:text-white "
+            onClick={() => {
+              setUpdateUserDetails(el);
+              setOpenDelete(true);
+            }}
+           >
               <MdDelete />
             </button>
             <button className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-blue-500 hover:text-white"
@@ -166,6 +173,20 @@ if(dataApi.error){
          
           </tbody>
         </table>
+        {openDelete && (
+          <DeleteUserDetails
+            onClose={() => setOpenDelete(false)}
+            name={updateUserDetails.name}
+            email={updateUserDetails.email}
+            role={updateUserDetails.role}
+            userId={updateUserDetails._id}
+            profilePic={updateUserDetails.profilePic}
+            callFunc={fetchAllusers}
+          />
+        )}
+
+
+
         {openUserDetails && (
           <DisplayUserDetails
             onClose={() => setOpenUserDetails(false)}
