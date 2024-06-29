@@ -9,9 +9,11 @@ import DisplayUserDetails from "../components/DisplayUserDetails";
 import { ImProfile } from "react-icons/im";
 import Context from "../context";
 import DeleteUserDetails from "../components/DeleteUserDetails";
+import Audio, { Bars, ThreeCircles, ThreeDots } from 'react-loader-spinner';
 
 const AllUsers = () => {
   const [showOneUser,setShowOneUser] = useState(false)
+  const [showLoader,setShowLoader] = useState(false)
   const [allUser, setAllUsers] = useState([]);
   const [oneUser, setOneUsers] = useState(null);
   const [openUpdateRole, setOpenUpdateRole] = useState(false);
@@ -32,6 +34,7 @@ const AllUsers = () => {
  
 
   const fetchAllusers = async () => {
+    setShowLoader(true)
     const fetchData = await fetch(SummaryApi.allUser.url, {
       method: SummaryApi.allUser.method,
       credentials: "include",
@@ -41,6 +44,7 @@ const AllUsers = () => {
 
     if (dataResponse.success) {
       setAllUsers(dataResponse.data);
+      setShowLoader(false)
     }
     if (dataResponse.error) {
       toast.error(dataResponse.message);
@@ -132,43 +136,60 @@ if(dataApi.error){
       </tr>
     </thead>
     <tbody>
-      {(showOneUser && oneUser ? [oneUser] : allUser).map((el, index) => (
-        <tr key={el.id || index}>
-          <td>{index + 1}</td>
-          <td>{el?.name}</td>
-          <td>{el?.email}</td>
-          <td>{el?.role}</td>
-          <td>{moment(el?.createdAt).format("LLL")}</td>
-          <td>
-            <div className="flex justify-evenly">
-            <button
-              className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-green-800 hover:text-white "
-              onClick={() => {
-                setUpdateUserDetails(el);
-                setOpenUpdateRole(true);
-              }}
-            >
-              <FiEdit />
-            </button>
-            <button className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-red-600 hover:text-white "
-            onClick={() => {
-              setUpdateUserDetails(el);
-              setOpenDelete(true);
-            }}
-           >
-              <MdDelete />
-            </button>
-            <button className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-blue-500 hover:text-white"
-            onClick={() => {
-              setUpdateUserDetails(el);
-              setOpenUserDetails(true);
-            }}
-            >
-            <ImProfile />
-            </button></div>
-          </td>
-        </tr>
-      ))}
+    {showLoader ? (
+        
+        <tr>
+        <td colSpan="6" className="text-center">
+          <div className="flex justify-center items-center">
+            <ThreeDots type="ThreeDots" color="#7542ff" height={80} width={80} />
+          </div>
+        </td>
+        
+      </tr>
+      
+        
+      ) : (
+        (showOneUser && oneUser ? [oneUser] : allUser).map((el, index) => (
+          <tr key={el.id || index}>
+            <td>{index + 1}</td>
+            <td>{el?.name}</td>
+            <td>{el?.email}</td>
+            <td>{el?.role}</td>
+            <td>{moment(el?.createdAt).format("LLL")}</td>
+            <td>
+              <div className="flex justify-evenly">
+                <button
+                  className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-green-800 hover:text-white"
+                  onClick={() => {
+                    setUpdateUserDetails(el);
+                    setOpenUpdateRole(true);
+                  }}
+                >
+                  <FiEdit />
+                </button>
+                <button
+                  className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-red-600 hover:text-white"
+                  onClick={() => {
+                    setUpdateUserDetails(el);
+                    setOpenDelete(true);
+                  }}
+                >
+                  <MdDelete />
+                </button>
+                <button
+                  className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-blue-500 hover:text-white"
+                  onClick={() => {
+                    setUpdateUserDetails(el);
+                    setOpenUserDetails(true);
+                  }}
+                >
+                  <ImProfile />
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))
+      )}
  
          
           </tbody>
