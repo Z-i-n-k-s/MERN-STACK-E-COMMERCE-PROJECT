@@ -5,19 +5,26 @@ import moment from "moment";
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import ChangeUserRole from "../components/ChangeUserRole";
-import { IoSearchSharp } from "react-icons/io5";
+import DisplayUserDetails from "../components/DisplayUserDetails";
+import { ImProfile } from "react-icons/im";
 import Context from "../context";
+import DeleteUserDetails from "../components/DeleteUserDetails";
+import Audio, { Bars, ThreeCircles, ThreeDots } from 'react-loader-spinner';
 
 const AllUsers = () => {
   const [showOneUser,setShowOneUser] = useState(false)
+  const [showLoader,setShowLoader] = useState(false)
   const [allUser, setAllUsers] = useState([]);
   const [oneUser, setOneUsers] = useState(null);
   const [openUpdateRole, setOpenUpdateRole] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openUserDetails, setOpenUserDetails] = useState(false);
   const [updateUserDetails, setUpdateUserDetails] = useState({
     email: "",
     name: "",
     role: "",
     _id: "",
+    profilePic:"",
   });
  
   const[data,setData] = useState({
@@ -27,6 +34,7 @@ const AllUsers = () => {
  
 
   const fetchAllusers = async () => {
+    setShowLoader(true)
     const fetchData = await fetch(SummaryApi.allUser.url, {
       method: SummaryApi.allUser.method,
       credentials: "include",
@@ -36,6 +44,7 @@ const AllUsers = () => {
 
     if (dataResponse.success) {
       setAllUsers(dataResponse.data);
+      setShowLoader(false)
     }
     if (dataResponse.error) {
       toast.error(dataResponse.message);
@@ -95,28 +104,6 @@ if(dataApi.error){
   return (
     <div>
       <div className=" flex justify-center p-3">
-      {/* <form className='pt-6 flex flex-row gap-1' onSubmit={handleUserSubmit}>
-
-
-      <div className='grid bg-slate-400'>
-        
-        <div className='bg-slate-200 p-2 rounded-full w-full'>
-            <input 
-            type='email' 
-            placeholder='Find User By Email'
-            name='email' 
-            value={data.email}
-            onChange={handleOnChange}
-            
-            className='w-full h-full outline-none bg-transparent '>
-
-            </input>
-        </div>
-    </div>
-    <button className='bg-red-600 hover:bg-red-700 text-white fu px-6 py-2 w-full max-w-[150px] rounded-full hover:scale-110 transition-all mx-auto block mt-6'>
-        search
-    </button>
-</form> */}
          <form className='flex flex-row ' onSubmit={handleUserSubmit}>
         <div className="hidden lg:flex items-center w-full justify-between border-2 rounded-full focus-within:shadow-md pl-3 ">
           <input 
@@ -149,57 +136,89 @@ if(dataApi.error){
       </tr>
     </thead>
     <tbody>
-      {(showOneUser && oneUser ? [oneUser] : allUser).map((el, index) => (
-        <tr key={el.id || index}>
-          <td>{index + 1}</td>
-          <td>{el?.name}</td>
-          <td>{el?.email}</td>
-          <td>{el?.role}</td>
-          <td>{moment(el?.createdAt).format("LLLL")}</td>
-          <td>
-            <button
-              className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-green-800 hover:text-white mr-10"
-              onClick={() => {
-                setUpdateUserDetails(el);
-                setOpenUpdateRole(true);
-              }}
-            >
-              <FiEdit />
-            </button>
-            <button className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-green-800 hover:text-white">
-              <MdDelete />
-            </button>
-          </td>
-        </tr>
-      ))}
+    {showLoader ? (
+        
+        <tr>
+        <td colSpan="6" className="text-center">
+          <div className="flex justify-center items-center">
+            <ThreeDots type="ThreeDots" color="#7542ff" height={80} width={80} />
+          </div>
+        </td>
+        
+      </tr>
+      
+        
+      ) : (
+        (showOneUser && oneUser ? [oneUser] : allUser).map((el, index) => (
+          <tr key={el.id || index}>
+            <td>{index + 1}</td>
+            <td>{el?.name}</td>
+            <td>{el?.email}</td>
+            <td>{el?.role}</td>
+            <td>{moment(el?.createdAt).format("LLL")}</td>
+            <td>
+              <div className="flex justify-evenly">
+                <button
+                  className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-green-800 hover:text-white"
+                  onClick={() => {
+                    setUpdateUserDetails(el);
+                    setOpenUpdateRole(true);
+                  }}
+                >
+                  <FiEdit />
+                </button>
+                <button
+                  className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-red-600 hover:text-white"
+                  onClick={() => {
+                    setUpdateUserDetails(el);
+                    setOpenDelete(true);
+                  }}
+                >
+                  <MdDelete />
+                </button>
+                <button
+                  className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-blue-500 hover:text-white"
+                  onClick={() => {
+                    setUpdateUserDetails(el);
+                    setOpenUserDetails(true);
+                  }}
+                >
+                  <ImProfile />
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))
+      )}
  
-            {/* {allUser.map((el, index) => {
-              return (
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>{el?.name}</td>
-                  <td>{el?.email}</td>
-                  <td>{el?.role}</td>
-                  <td>{moment(el?.createdAt).format("LLLL")}</td>
-                  <td>
-                    <button
-                      className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-green-800 hover:text-white mr-10"
-                      onClick={() => {
-                        setUpdateUserDetails(el);
-                        setOpenUpdateRole(true);
-                      }}
-                    >
-                      <FiEdit />
-                    </button>
-                    <button className="bg-green-200 p-2 rounded-full cursor-pointer hover:bg-green-800 hover:text-white ">
-                      <MdDelete />
-                    </button>
-                  </td>
-                </tr>
-              );
-            })} */}
+         
           </tbody>
         </table>
+        {openDelete && (
+          <DeleteUserDetails
+            onClose={() => setOpenDelete(false)}
+            name={updateUserDetails.name}
+            email={updateUserDetails.email}
+            role={updateUserDetails.role}
+            userId={updateUserDetails._id}
+            profilePic={updateUserDetails.profilePic}
+            callFunc={fetchAllusers}
+          />
+        )}
+
+
+
+        {openUserDetails && (
+          <DisplayUserDetails
+            onClose={() => setOpenUserDetails(false)}
+            name={updateUserDetails.name}
+            email={updateUserDetails.email}
+            role={updateUserDetails.role}
+            userId={updateUserDetails._id}
+            profilePic={updateUserDetails.profilePic}
+            callFunc={fetchAllusers}
+          />
+        )}
 
         {openUpdateRole && (
           <ChangeUserRole

@@ -5,6 +5,7 @@ async function updateUser(req, res) {
         const sessionUser = req.userId
 
         const { userId, email, name, role } = req.body
+        console.log("user sent - ",req.body)
         const payload = {
             ...(email && { email: email }),
             ...(name && { name: name }),
@@ -16,6 +17,7 @@ async function updateUser(req, res) {
 
 
         const updateUser = await userModel.findByIdAndUpdate(userId, payload)
+        console.log("update - ",updateUser)
         res.json({
             data: updateUser,
             message: "Updated successfully",
