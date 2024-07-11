@@ -40,6 +40,12 @@ const SummaryApi = {
         method: 'post'
     
     },
+    uploadProduct:{ 
+
+        url : `${backendDomin}/api/upload-product`,
+        method: 'post'
+    
+    }
 }
 
 export default SummaryApi
