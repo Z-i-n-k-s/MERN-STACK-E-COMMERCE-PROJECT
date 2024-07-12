@@ -85,7 +85,7 @@ const DeleteUserDetails = ({
             Cancel
           </button>
         </div>
-        </div>
+        </div> 
       </div>
     </div>
   )
