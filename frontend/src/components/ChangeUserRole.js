@@ -71,7 +71,7 @@ const updateUserRole = async()=>{
             type="text"
             placeholder="Enter new name"
             name="newName"
-            value={userNewName.newName}
+            value={userNewName}
             onChange={handleOnChangeName}
             className="w-full p-2 border border-gray-300 rounded-lg bg-white mb-4"
           />
@@ -80,7 +80,7 @@ const updateUserRole = async()=>{
             type="email"
             placeholder="Enter new email"
             name="newEmail"
-            value={userNewEmail.newEmail}
+            value={userNewEmail}
             onChange={handleOnChangeEmail}
             className="w-full p-2 border border-gray-300 rounded-lg bg-white mb-4"
           />
