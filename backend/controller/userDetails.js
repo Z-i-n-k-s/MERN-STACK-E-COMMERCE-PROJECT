@@ -5,6 +5,7 @@ async function userDetailsController(req,res){
     try{
         console.log("user id ",req.userId)
         const user = await userModel.findById(req.userId)
+        console.log("user found with",user)
 
         res.status(200).json({
             data : user,
@@ -14,7 +15,7 @@ async function userDetailsController(req,res){
         })
 
 
-        console.log("user",user)
+    //    console.log("user",user)
 
     }catch(err){
 

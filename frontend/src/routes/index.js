@@ -12,6 +12,7 @@ import AllProducts from "../pages/AllProducts";
 
 
 
+
 const router  = createBrowserRouter([
     {
         path : "/",
@@ -47,6 +48,7 @@ const router  = createBrowserRouter([
                     }
                 ]
             },
+          
 
         ]
         

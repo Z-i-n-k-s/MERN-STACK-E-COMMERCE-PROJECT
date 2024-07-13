@@ -9,11 +9,13 @@ import SummaryApi from "../common";
 import { toast } from 'react-toastify'
 import { setUserDetails } from '../store/userSlice'
 import ROLE from "../common/role";
+import ProfileDisplay from "./ProfileDisplay";
 
 const Header = () => {
   const user = useSelector(state => state?.user?.user)
   const dispatch = useDispatch()
   const [menuDisplay,setMenuDisplay]=useState(false)
+  const [profileDisplay,setProfileDisplay]=useState(false)
   //console.log("user header", user)
   
 
@@ -79,15 +81,37 @@ const Header = () => {
                     {
                       user?.role === ROLE.ADMIN &&(
                         <Link to={"/admin-panel/all-products"} className="whitespace-nowrap hidden md:block hover:bg-slate-100 p-2" onClick={()=>setMenuDisplay(preve => !preve )}>Admin Panel</Link>
+                        
                       )
                     }
-                    
                   </nav>
+                  <div className="flex justify-center">
+                  <button  className="whitespace-nowrap hidden md:block hover:bg-slate-100 p-2"
+                  onClick={() => {
+                   
+                    setProfileDisplay(true);
+                  }}>
+                    Profile
+                    </button>
+                    </div>
+                
               </div>
                 )
               }
           
             </div>
+            {profileDisplay && (
+          <ProfileDisplay
+            onClose={() => setProfileDisplay(false)}
+            name={user.name}
+            email={user.email}
+            role={user.role}
+            userId={user._id}
+            profilePic={user.profilePic}
+            callFunc={handelLogout}
+          />
+        )}
+
 
           <div className="text-2xl relative">
             <span>
