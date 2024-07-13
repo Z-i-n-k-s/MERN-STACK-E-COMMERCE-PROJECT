@@ -49,3 +49,7 @@
 .userTable td{
   @apply border text-base text-center font-semibold
 }
+/*scrollbar hidden****/
+.scrollbar-none::-webkit-scrollbar{
+  display: none;
+}
