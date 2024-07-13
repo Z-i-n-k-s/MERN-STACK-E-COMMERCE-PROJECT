@@ -1,4 +1,4 @@
-const userModel = require("../models/userModel")
+const userModel = require("../../models/userModel")
 
 async function updateUser(req, res) {
     try {
@@ -11,6 +11,8 @@ async function updateUser(req, res) {
             ...(name && { name: name }),
             ...(role && { role: role }),
         }
+
+        console.log("payload --- ",payload)
 
         const user = await userModel.findById(sessionUser)
         console.log('user-role', user.role)
