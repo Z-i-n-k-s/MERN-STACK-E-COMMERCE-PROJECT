@@ -2,21 +2,22 @@ const express = require('express')
 
 const router = express.Router()
 
-const userSignUpController = require("../controller/userSignUp")
-const userSignInController = require("../controller/userSignIn")
-const userDetailsController = require('../controller/userDetails')
+const userSignUpController = require("../controller/User/userSignUp")
+const userSignInController = require("../controller/User/userSignIn")
+const userDetailsController = require('../controller/User/userDetails')
 const authToken = require('../middleware/authToken')
-const userLogout = require('../controller/userLogout')
-const allUsers = require('../controller/allUsers')
-const updateUser = require('../controller/updateUser')
-const userSearchController = require('../controller/userSearch')
-const userDeleteController = require('../controller/userDelete')
+const userLogout = require('../controller/User/userLogout')
+const allUsers = require('../controller/User/allUsers')
+const updateUser = require('../controller/User/updateUser')
+const userSearchController = require('../controller/User/userSearch')
+const userDeleteController = require('../controller/User/userDelete')
 
-const updateProfile = require('../controller/updateProfile')
+const updateProfile = require('../controller/User/updateProfile')
 
-const UploadProductController = require('../controller/uploadProduct')
-const getProductController = require('../controller/getProduct')
-const updateProductController = require('../controller/updateProduct')
+const UploadProductController = require('../controller/Product/uploadProduct')
+const getProductController = require('../controller/Product/getProduct')
+const updateProductController = require('../controller/Product/updateProduct')
+const getCatagoryProduct = require('../controller/Product/getCatagoryProduct')
 
 
 router.post("/signup",userSignUpController)
@@ -36,6 +37,6 @@ router.post("/delete-user",authToken,userDeleteController)
 router.post("/upload-product",authToken,UploadProductController)
 router.get("/get-product",getProductController)
 router.post("/update-product",authToken,updateProductController)
-
+router.get("/get-categoryProduct",getCatagoryProduct)
 
 module.exports = router
