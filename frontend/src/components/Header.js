@@ -52,7 +52,7 @@ const Header = () => {
             <IoSearchSharp />
           </div>
         </div>
-        <div className="flex items-center gap-7">
+        <div className="z-50 flex items-center gap-7">
             
             <div className="relative flex justify-center">
 
