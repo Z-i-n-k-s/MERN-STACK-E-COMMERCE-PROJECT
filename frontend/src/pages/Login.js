@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 import Context from '../context';
+import axios from 'axios'
 
 
 
@@ -18,6 +19,7 @@ const Login = () => {
     const navigate = useNavigate()
     const { fetchUserDetails } = useContext(Context)
 
+    //axios.defaults.withCredentials = true;
 
 
     const handleOnChange = (e) =>{
@@ -32,6 +34,7 @@ const Login = () => {
     }
     
 
+    
 
     const handleSubmit = async(e) =>{
        e.preventDefault()
