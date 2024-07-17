@@ -1,4 +1,5 @@
 
+import ProductDetails from "../pages/ProductDetails"
 import SignUP from "../pages/SignUP"
 
 const backendDomin = process.env.REACT_APP_BACKEND_URL//"http://localhost:8080"
@@ -68,8 +69,14 @@ const SummaryApi = {
     categoryWiseProduct : {
         url : `${backendDomin}/api/category-product`,
         method : 'post'
-    }
+    },
+   productDetails : {
+    url : `${backendDomin}/api/product-details`,
+    method : 'post'
+   }
+    
     
 }
+
 
 export default SummaryApi
