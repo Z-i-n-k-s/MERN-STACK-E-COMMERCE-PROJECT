@@ -8,6 +8,7 @@ async function userLogout(req,res){
         }
 
         res.clearCookie("token",tokenOption)
+        res.clearCookie("refresh_token",tokenOption)
 
         res.json({
             message: "Logged out successfully",
