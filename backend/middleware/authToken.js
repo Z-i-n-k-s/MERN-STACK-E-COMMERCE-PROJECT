@@ -17,7 +17,7 @@ async function authToken(req, res, next) {
             if (err) {
                 console.log("Token verification error: ", err);
 
-                if (err.name === 'JsonWebTokenError' && refreshToken) {
+                if ((err.name === 'JsonWebTokenError' || err.name ==="TokenExpiredError" ) && refreshToken) {
                     try {
                         const refreshDecoded = jwt.verify(refreshToken, process.env.TOKEN_SECRET_REF_KEY);
                         const newTokenData = {
@@ -25,14 +25,14 @@ async function authToken(req, res, next) {
                             email: refreshDecoded.email,
                         };
 
-                        const newToken = jwt.sign(newTokenData, process.env.TOKEN_SECRET_KEY, { expiresIn: "1m" });
+                        const token = jwt.sign(newTokenData, process.env.TOKEN_SECRET_KEY, { expiresIn: "1m" });
                         const tokenOption = {
                             httpOnly: true,
                             secure: true,
                             sameSite: 'None'
                         };
 
-                        res.cookie("token", newToken, tokenOption);
+                        res.cookie("token", token, tokenOption);
 
                         req.userId = newTokenData._id;
                         return next();
