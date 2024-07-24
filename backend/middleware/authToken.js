@@ -4,6 +4,7 @@ async function authToken(req, res, next) {
     try {
         const token = req.cookies?.token;
         const refreshToken = req.cookies?.refresh_token;
+        console.log(refreshToken)
 
         if (!token && !refreshToken) {
             return res.json({
@@ -16,6 +17,7 @@ async function authToken(req, res, next) {
         jwt.verify(token, process.env.TOKEN_SECRET_KEY, async function(err, decoded) {
             if (err) {
                 console.log("Token verification error: ", err);
+                console.log("Token  error: ", err.name);
 
                 if ((err.name === 'JsonWebTokenError' || err.name ==="TokenExpiredError" ) && refreshToken) {
                     try {
@@ -25,7 +27,7 @@ async function authToken(req, res, next) {
                             email: refreshDecoded.email,
                         };
 
-                        const token = jwt.sign(newTokenData, process.env.TOKEN_SECRET_KEY, { expiresIn: "1m" });
+                        const token = jwt.sign(newTokenData, process.env.TOKEN_SECRET_KEY, { expiresIn: "20m" });
                         const tokenOption = {
                             httpOnly: true,
                             secure: true,
@@ -37,6 +39,14 @@ async function authToken(req, res, next) {
                         req.userId = newTokenData._id;
                         return next();
                     } catch (refreshErr) {
+                        const tokenOption = {
+                            httpOnly : true,
+                            secure : true,
+                            sameSite : 'None'
+                        }
+                        res.clearCookie("refresh_token",tokenOption)
+                        res.clearCookie("token",tokenOption)
+                        
                         console.log("Refresh token error: ", refreshErr);
                         return res.status(401).json({
                             message: "Invalid refresh token. Please log in again.",
@@ -45,6 +55,7 @@ async function authToken(req, res, next) {
                         });
                     }
                 } else {
+                   
                     return res.status(401).json({
                         message: "Invalid token. Please log in again.",
                         error: true,
