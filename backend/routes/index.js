@@ -22,6 +22,7 @@ const getCatagoryWiseProduct = require('../controller/Product/getCatagoryWisePro
 const getProductDetails = require('../controller/Product/getProductDetails')
 
 
+
 router.post("/signup",userSignUpController)
 router.post("/signin",userSignInController)
 router.get("/user-details",authToken,userDetailsController)
