@@ -54,7 +54,7 @@ const DeleteUserDetails = ({
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 w-full z-10 flex justify-center items-center bg-slate-200 bg-opacity-50">
       {showLoader ? (
-        <div className="relative bg-white shadow-lg p-6 w-full max-w-lg rounded-lg">
+          <div className="flex justify-center items-center bg-white shadow-lg p-6 w-full max-w-lg rounded-lg h-40">
           <ThreeDots type="ThreeDots" color="#7542ff" height={80} width={80} />
         </div>
       ) : (

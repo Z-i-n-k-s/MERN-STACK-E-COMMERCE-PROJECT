@@ -40,9 +40,9 @@ const Header = () => {
   return (
     <div>
       {showLoader ? (
-        <div className="relative bg-white shadow-lg p-6 w-full max-w-lg rounded-lg">
-          <ThreeDots type="ThreeDots" color="#7542ff" height={80} width={80} />
-        </div>
+       <div className="fixed inset-0 flex justify-center items-center bg-white bg-opacity-75 z-50">
+       <ThreeDots type="ThreeDots" color="#7542ff" height={80} width={80} />
+     </div>
       ) : (
         <header className="h-16 shadow-md bg-white fixed w-full z-40">
           <div className="h-full container mx-auto flex items-center px-4 justify-between">
