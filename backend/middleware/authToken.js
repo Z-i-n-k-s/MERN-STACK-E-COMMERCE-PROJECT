@@ -4,7 +4,8 @@ async function authToken(req, res, next) {
     try {
         const token = req.cookies?.token;
         const refreshToken = req.cookies?.refresh_token;
-        console.log(refreshToken)
+        console.log("ref_token-> ",refreshToken)
+        console.log("token-> ",token)
 
         if (!token && !refreshToken) {
             return res.json({
@@ -28,6 +29,7 @@ async function authToken(req, res, next) {
                         };
 
                         const token = jwt.sign(newTokenData, process.env.TOKEN_SECRET_KEY, { expiresIn: "20m" });
+                        console.log("token after re-gen -> ",token)
                         const tokenOption = {
                             httpOnly: true,
                             secure: true,
@@ -35,6 +37,7 @@ async function authToken(req, res, next) {
                         };
 
                         res.cookie("token", token, tokenOption);
+                        console.log("token from cookie after gen -> ",req.cookies?.token)
 
                         req.userId = newTokenData._id;
                         return next();
