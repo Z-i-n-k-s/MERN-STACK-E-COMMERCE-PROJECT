@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BsCart4 } from "react-icons/bs";
 import { FaUserLarge } from "react-icons/fa6";
 import { IoSearchSharp } from "react-icons/io5";
@@ -11,6 +11,7 @@ import { setUserDetails } from "../store/userSlice";
 import ROLE from "../common/role";
 import ProfileDisplay from "./ProfileDisplay";
 import Audio, { Bars, ThreeCircles, ThreeDots } from "react-loader-spinner";
+import Context from "../context";
 
 const Header = () => {
   const [showLoader, setShowLoader] = useState(false);
@@ -18,6 +19,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const [menuDisplay, setMenuDisplay] = useState(false);
   const [profileDisplay, setProfileDisplay] = useState(false);
+  const context = useContext(Context);
   //console.log("user header", user)
 
   const handelLogout = async () => {
@@ -40,9 +42,9 @@ const Header = () => {
   return (
     <div>
       {showLoader ? (
-       <div className="fixed inset-0 flex justify-center items-center bg-white bg-opacity-75 z-50">
-       <ThreeDots type="ThreeDots" color="#7542ff" height={80} width={80} />
-     </div>
+        <div className="fixed inset-0 flex justify-center items-center bg-white bg-opacity-75 z-50">
+          <ThreeDots type="ThreeDots" color="#7542ff" height={80} width={80} />
+        </div>
       ) : (
         <header className="h-16 shadow-md bg-white fixed w-full z-40">
           <div className="h-full container mx-auto flex items-center px-4 justify-between">
@@ -92,17 +94,19 @@ const Header = () => {
                           Admin Panel
                         </Link>
                       )}
-                      {(user?.role===ROLE.GENERAL || user?.role === ROLE.ADMIN) &&(<div className="flex justify-center">
-                        <button
-                          className="whitespace-nowrap hidden md:block hover:bg-slate-100 p-2"
-                          onClick={() => {
-                            setProfileDisplay(true);
-                          }}
-                        >
-                          Profile
-                        </button>
-                      </div>)}
-                      
+                      {(user?.role === ROLE.GENERAL ||
+                        user?.role === ROLE.ADMIN) && (
+                        <div className="flex justify-center">
+                          <button
+                            className="whitespace-nowrap hidden md:block hover:bg-slate-100 p-2"
+                            onClick={() => {
+                              setProfileDisplay(true);
+                            }}
+                          >
+                            Profile
+                          </button>
+                        </div>
+                      )}
                     </nav>
                   </div>
                 )}
@@ -119,14 +123,17 @@ const Header = () => {
                 />
               )}
 
-              <div className="text-2xl relative">
-                <span>
-                  <BsCart4 />
-                </span>
-                <div className="bg-red-400 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3">
-                  <p className="text-sm">0</p>
+              {user?._id && (
+                <div className="text-2xl relative">
+                  <span>
+                    <BsCart4 />
+                  </span>
+                  <div className="bg-red-400 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3">
+                    <p className="text-sm">{context.cartProductCount}</p>
+                  </div>
                 </div>
-              </div>
+              )}
+
               <div>
                 {user?._id ? (
                   <button
