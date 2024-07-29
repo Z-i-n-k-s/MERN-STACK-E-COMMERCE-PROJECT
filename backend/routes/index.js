@@ -22,6 +22,8 @@ const getCatagoryWiseProduct = require('../controller/Product/getCatagoryWisePro
 const getProductDetails = require('../controller/Product/getProductDetails')
 const addToCartController = require('../controller/User/addToCartController')
 const countCartProduct = require('../controller/User/countCartProduct')
+const addToCartViewProduct = require('../controller/User/addToCartViewProduct')
+
 
 
 
@@ -51,6 +53,7 @@ router.post("/product-details",getProductDetails)
 
 router.post("/addtocart",authToken,addToCartController)
 router.get("/countCartProduct",authToken,countCartProduct)
+router.get("/view-cart-product",authToken,addToCartViewProduct)
 
 
 
