@@ -4,14 +4,14 @@ async function userLogout(req, res) {
             httpOnly: true,
             secure: true,
             sameSite: 'None',
+            domain: "https://mern-stack-e-commerce-project-q1el.vercel.app",
             path: '/' // Adjust path if needed
         };
 
         res.clearCookie('token', tokenOption);
         res.clearCookie('refresh_token', tokenOption);
 
-        res.cookie('token', '', { ...tokenOption, expires: new Date(0) });
-        res.cookie('refresh_token', '', { ...tokenOption, expires: new Date(0) });
+        
 
         res.status(200).json({
             message: "Logged out successfully",
