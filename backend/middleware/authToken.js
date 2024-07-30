@@ -25,9 +25,13 @@ async function authToken(req, res, next) {
 
                         const newToken = jwt.sign(newTokenData, process.env.TOKEN_SECRET_KEY, { expiresIn: "20m" });
 
-                       
+                        const tokenOption = {
+                            httpOnly: true,
+                            secure: true,
+                            sameSite: 'None'
+                        };
 
-                        res.cookie("token", newToken);
+                        res.cookie("token", newToken, tokenOption);
 
                         req.userId = newTokenData._id;
                         return next();
