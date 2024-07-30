@@ -6,8 +6,10 @@ async function authToken(req, res, next) {
         const refreshToken = req.cookies?.refresh_token;
 
         if (!token && !refreshToken) {
-            return res.status(401).json({
-                message: "Please Log In",
+
+            return res.json({
+                message: " Plaese LogIn ",
+
                 error: true,
                 success: false,
             });

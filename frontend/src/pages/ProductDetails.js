@@ -5,7 +5,8 @@ import SummaryApi from '../common'
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa6";
 import displayBDTCurrency from '../helpers/displayCurrency';
-const VerticalCardProduct = lazy(() => import('../components/VerticalCardProduct'));
+
+const CategoryWisepProductDisplay = lazy(() => import('../components/CategoryWiseProductDisplay'));
 
 
 
@@ -88,7 +89,7 @@ const ProductDetails = () => {
 
         {/**product Image */}
         <div className='h-96 flex flex-col lg:flex-row-reverse gap-4'>
-          <div className='h-[300px] w-[300px] lg:h-96 lg:w-96 bg-slate-200 relative'>
+          <div className='h-[300px] w-[300px] lg:h-96 lg:w-96 bg-slate-200 relative p-3'>
             <img src={activeImage} className='h-full w-full object-scale-down mix-blend-multiply' onMouseMove={handleZoomImage} onMouseLeave={handleLeaveImageZoom} />
 
 
@@ -204,11 +205,17 @@ const ProductDetails = () => {
             )
         }
       </div>
-      
-      <Suspense fallback={<div>Loading...</div>}>
-        <VerticalCardProduct category={data.category} heading={"Recommended Product"} />
+
+      {
+        data.category && (
+           <Suspense fallback={<div>Loading...</div>}>
+        <CategoryWisepProductDisplay category={data.category} heading={"Recommended Product"} />
         
       </Suspense>
+        )
+      }
+      
+     
       
       
     </div>

@@ -6,16 +6,11 @@ import { Link } from 'react-router-dom'
 import addToCart from '../helpers/addToCart'
 import Context from '../context'
 
-const VerticalCardProduct = ({ category, heading }) => {
+const CategoryWisepProductDisplay = ({ category, heading }) => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
     const loadingList = new Array(13).fill(null)
 
-    const [scroll , setScroll] = useState(0)
-    const scrollElement = useRef()
-
-
-    
     const { fetchUserAddToCart } = useContext(Context);
 
     const handelAddToCart = async(e,id)=>{
@@ -25,8 +20,7 @@ const VerticalCardProduct = ({ category, heading }) => {
 
     }
 
-
-
+   
     const fetchData = async () => {
         setLoading(true)
         const categoryProduct = await fetchCategoryWiseProduct(category)
@@ -39,22 +33,17 @@ const VerticalCardProduct = ({ category, heading }) => {
         fetchData()
     }, [])
 
-    const scrollRight = () =>{
-        scrollElement.current.scrollLeft += 300
-    }
-    const scrollLeft = () =>{
-        scrollElement.current.scrollLeft -= 300
-    }
+    
     return (
         <div className='container mx-auto px-4 my-6 relative'>
 
             <h2 className='text-2xl font-semibold py-4'>{heading}</h2>
 
 
-            <div className='flex items-center gap-4 md:gap-6 overflow-x-scroll scrollbar-none transition-all' ref={scrollElement}>
+            <div className='grid grid-cols-[repeat(auto-fit,minmax(300px,320px))] justify-between  md:gap-6 overflow-x-scroll scrollbar-none transition-all' >
 
-            <button className='bg-white shadow-md rounded-full p-1 absolute left-0 text-lg hidden md:block' onClick={scrollLeft}><FaAngleLeft /></button>
-            <button className='bg-white shadow-md rounded-full p-1 absolute right-0 text-lg hidden md:block' onClick={scrollRight}><FaAngleRight /></button>
+            
+            
                 {   
                 loading?(
                     loadingList.map((product, index) => {
@@ -105,4 +94,4 @@ const VerticalCardProduct = ({ category, heading }) => {
     )
 }
 
-export default VerticalCardProduct
+export default CategoryWisepProductDisplay
