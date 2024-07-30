@@ -25,25 +25,17 @@ async function authToken(req, res, next) {
 
                         const newToken = jwt.sign(newTokenData, process.env.TOKEN_SECRET_KEY, { expiresIn: "20m" });
 
-                        const tokenOption = {
-                            httpOnly: true,
-                            secure: true,
-                            sameSite: 'None'
-                        };
+                       
 
-                        res.cookie("token", newToken, tokenOption);
+                        res.cookie("token", newToken);
 
                         req.userId = newTokenData._id;
                         return next();
                     } catch (refreshErr) {
-                        const tokenOption = {
-                            httpOnly: true,
-                            secure: true,
-                            sameSite: 'None'
-                        };
+                       
 
-                        res.clearCookie("refresh_token", tokenOption);
-                        res.clearCookie("token", tokenOption);
+                        res.clearCookie("refresh_token");
+                        res.clearCookie("token");
 
                         return res.status(401).json({
                             message: "Invalid refresh token. Please log in again.",
