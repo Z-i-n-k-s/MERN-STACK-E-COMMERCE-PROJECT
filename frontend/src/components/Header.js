@@ -3,7 +3,7 @@ import { BsCart4 } from "react-icons/bs";
 import { FaUserLarge } from "react-icons/fa6";
 import { IoSearchSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import SummaryApi from "../common";
 import { toast } from "react-toastify";
@@ -20,6 +20,7 @@ const Header = () => {
   const [menuDisplay, setMenuDisplay] = useState(false);
   const [profileDisplay, setProfileDisplay] = useState(false);
   const context = useContext(Context);
+  const navigate = useNavigate();
   //console.log("user header", user)
 
   const handelLogout = async () => {
@@ -36,6 +37,7 @@ const Header = () => {
       toast.success(data.message);
       dispatch(setUserDetails(null));
       setShowLoader(false);
+      navigate("/");
     }
     if (data.error) {
       toast.error(data.message);
