@@ -27,6 +27,9 @@ const Header = () => {
     const fetchData = await fetch(SummaryApi.logout_user.url, {
       method: SummaryApi.logout_user.method,
       credentials: "include",
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
     const data = await fetchData.json();
     if (data.success) {

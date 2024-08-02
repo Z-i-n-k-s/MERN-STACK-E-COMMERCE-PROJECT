@@ -31,8 +31,8 @@ const deleteAddToCartProduct = require('../controller/User/deleteAddToCartProduc
 
 router.post("/signup",userSignUpController)
 router.post("/signin",userSignInController)
-router.get("/user-details",authToken,userDetailsController)
-router.get("/userLogout",userLogout)
+router.post("/user-details",authToken,userDetailsController)
+router.post("/userLogout",userLogout)
 
 
 //admin panel
