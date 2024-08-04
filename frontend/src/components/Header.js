@@ -44,6 +44,16 @@ const Header = () => {
       setShowLoader(false);
     }
   };
+
+  const handelSearch = (e)=>{
+        const {value } = e.target
+
+        if (value) {
+          navigate(`/search?q=${value}`)
+        }else{
+          navigate(`/search`)
+        }
+  }
   return (
     <div>
       {showLoader ? (
@@ -63,6 +73,7 @@ const Header = () => {
                 type="text"
                 placeholder="Find your items...."
                 className="w-full outline-none "
+                onChange={handelSearch}
               />
               <div className="text:lg min-w-[50px] h-8 bg-red-500 flex items-center justify-center rounded-full text-white">
                 <IoSearchSharp />

@@ -77,16 +77,17 @@ const HorizontalCardProduct = ({ category, heading }) => {
                     ):(
                         data.map((product, index) => {
                         return (
-                            <Link to={"product/"+product?._id} className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-42  bg-white rounded-sm shadow flex'>
+                            <Link to={"product/"+product?._id} className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36  bg-white rounded-sm shadow flex'>
                                 <div className='bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]'>
                                     <img src={product.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all'/>
                                 </div>
-                                <div className='p-4 grid'>
+                                <div className='px-4 py-2 grid'>
                                     <h2 className='font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black'>{product?.productName}</h2>
                                     <p className='capitalize text-slate-500'>{product?.category}</p>
                                     <div className=''>
-                                        <p className='text-red-600 font-medium'>{displayBDTCurrency(product?.sellingPrice) }</p>
-                                        <p className='text-slate-500 line-through'>{displayBDTCurrency( product?.price)}</p>
+                                    <p className='text-red-600 font-medium'> {displayBDTCurrency(product?.sellingPrice) }</p>
+
+                                        <p className='text-slate-500 line-through'>{displayBDTCurrency(product?.price) }</p>
                                     </div>
                                     <button className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full' onClick={(e)=>handelAddToCart(e,product?._id)}>Add to Cart</button>
                                 </div>
