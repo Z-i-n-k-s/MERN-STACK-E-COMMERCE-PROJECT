@@ -5,7 +5,7 @@ const displayBDTCurrency = (num) =>{
         minimumFractionDigits: 2,
         
     })
-    return formatter.format(num).replace('BDT','৳');
+    return formatter.format(num).replace('BDT','TK.');
 }
 
 export default displayBDTCurrency

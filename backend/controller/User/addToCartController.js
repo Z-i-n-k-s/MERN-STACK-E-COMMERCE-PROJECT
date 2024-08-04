@@ -6,17 +6,28 @@ const addToCartController = async(req,res) => {
         
             const { productId } = req?.body
             const currentUser = req.userId
+            
     
-            const isProductAvailable = await addToCartModel.findOne({ productId})
+            const isProductAvailable = await addToCartModel.find({ productId})
+         
     
             console.log("isProductAvailabl   ",isProductAvailable)
+            
+            console.log("isProductAvailabl  id ",isProductAvailable?.userId)
+            console.log("curruser  id ",currentUser)
+
+            const isUserPresent = isProductAvailable.some(item => item.userId === currentUser);
+
+            console.log("a find -> ",isUserPresent);
+            
     
             if(isProductAvailable){
+               if(isUserPresent) {
                 return res.json({
                     message : "Product is already in cart",
                     success : false,
                     error : true
-                })
+                })}
             }
 
             const payload  = {
