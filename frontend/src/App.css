@@ -53,3 +53,7 @@
 .scrollbar-none::-webkit-scrollbar{
   display: none;
 }
+
+.currency-symbol {
+  font-size: larger; /* Adjust the size as needed */
+}

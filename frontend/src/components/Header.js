@@ -3,7 +3,7 @@ import { BsCart4 } from "react-icons/bs";
 import { FaUserLarge } from "react-icons/fa6";
 import { IoSearchSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import SummaryApi from "../common";
 import { toast } from "react-toastify";
@@ -21,7 +21,10 @@ const Header = () => {
   const [profileDisplay, setProfileDisplay] = useState(false);
   const context = useContext(Context);
   const navigate = useNavigate();
-  //console.log("user header", user)
+  const searchInput = useLocation();
+  const [search,setSearch] = useState(searchInput?.search?.split("=")[1]);
+
+  console.log("Search Input", searchInput?.search.split("=")[1])
 
   const handelLogout = async () => {
     setShowLoader(true);
@@ -32,6 +35,7 @@ const Header = () => {
         'Content-Type': 'application/json',
       },
     });
+
     const data = await fetchData.json();
     if (data.success) {
       toast.success(data.message);
@@ -44,6 +48,16 @@ const Header = () => {
       setShowLoader(false);
     }
   };
+
+  const handelSearch = (e)=>{
+        const {value } = e.target
+        setSearch(value)
+        if (value) {
+          navigate(`/search?q=${value}`)
+        }else{
+          navigate(`/search`)
+        }
+  }
   return (
     <div>
       {showLoader ? (
@@ -63,6 +77,8 @@ const Header = () => {
                 type="text"
                 placeholder="Find your items...."
                 className="w-full outline-none "
+                onChange={handelSearch}
+                value={search}
               />
               <div className="text:lg min-w-[50px] h-8 bg-red-500 flex items-center justify-center rounded-full text-white">
                 <IoSearchSharp />
