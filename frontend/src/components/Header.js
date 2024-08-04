@@ -84,7 +84,7 @@ const Header = () => {
                 <IoSearchSharp />
               </div>
             </div>
-            <div className="z-50 flex items-center gap-7">
+            <div className="z-50 flex items-center gap-4">
               <div className="relative flex justify-center">
                 {user?._id && (
                   <div
@@ -119,7 +119,7 @@ const Header = () => {
                         user?.role === ROLE.ADMIN) && (
                         <div className="flex justify-center">
                           <button
-                            className="whitespace-nowrap hidden md:block hover:bg-slate-100 p-2"
+                            className="whitespace-nowrap  hover:bg-slate-100 p-2"
                             onClick={() => {
                               setProfileDisplay(true);
                             }}
