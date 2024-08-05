@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 import AdminEditProduct from './AdminEditProduct';
 import displayBDTCurrency from '../helpers/displayCurrency';
 
@@ -27,10 +28,15 @@ const AdminProductCard = ({
                         }
 
                     </p>
+
+                <div className="flex space-x-2">    
                     <div className='w-fit ml-auto p-2 bg-green-100 hover:bg-green-500 rounded-full hover:text-white cursor-pointer' onClick={() => setEditProduct(true)}>
                         <FaEdit />
-                        <div />
                     </div>
+                    <div className='w-fit ml-auto p-2 bg-green-100 hover:bg-red-500 rounded-full hover:text-white cursor-pointer' onClick={() => setEditProduct(true)}>
+                    <MdDelete />
+                    </div>
+                </div>    
                 </div>
 
             </div>
