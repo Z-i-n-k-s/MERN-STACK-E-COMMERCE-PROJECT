@@ -209,7 +209,7 @@ const ProductDetails = () => {
       {
         data.category && (
            <Suspense fallback={<div>Loading...</div>}>
-        <CategoryWisepProductDisplay category={data.category} heading={"Recommended Product"} />
+        <CategoryWisepProductDisplay category={data?.category} heading={"Recommended Product"} />
         
       </Suspense>
         )
