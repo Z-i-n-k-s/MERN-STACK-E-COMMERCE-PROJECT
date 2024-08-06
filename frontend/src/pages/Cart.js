@@ -11,7 +11,7 @@ const Cart = () => {
   const loadingCart = new Array(4).fill(null);
 
   const fetchData = async () => {
-    setLoading(true);
+    
     const response = await fetch(SummaryApi.addToCartProductView.url, {
       method: SummaryApi.addToCartProductView.method,
       credentials: "include",
@@ -21,14 +21,21 @@ const Cart = () => {
     });
 
     const responseData = await response.json();
-    console.log("data cart", responseData);
+   
     if (responseData.success) {
       setData(responseData.data);
-      setLoading(false);
+      
     }
   };
+
+  const handleloading = async() =>{
+    await fetchData();
+  }
   useEffect(() => {
-    fetchData();
+    setLoading(true);
+    handleloading()
+    setLoading(false);
+    
   }, []);
   const increaseQty = async (id, qty) => {
     const response = await fetch(SummaryApi.updateCartProduct.url, {
@@ -113,9 +120,9 @@ const Cart = () => {
         {/* View product */}
         <div className="w-full max-w-3xl">
           {loading ? (
-            loadingCart.map((el) => (
+            loadingCart.map((el,index) => (
               <div
-                key={el + "Cart Product Loading"}
+                key={el + "Cart Product Loading"+index}
                 className="w-full bg-gray-200 h-32 my-3 border border-gray-300 animate-pulse rounded-lg"
               >
                 Loading...
