@@ -22,6 +22,11 @@ const CategoryProduct = () => {
 
     const [selectCategory,setSelectCategory] = useState(urlCategoryListObject)
     const [filterCategoryList , setFilterCategoryList] = useState([])
+
+    const [sortBy , setSortBy] = useState("")
+
+    
+    
     
     const fetchData = async()=>{
         const response = await fetch(SummaryApi.filterProduct.url,{
@@ -81,6 +86,27 @@ const CategoryProduct = () => {
          
          
     },[selectCategory])
+    
+
+    const handleOnChangeSortBy = (e)=>{
+      const {value } = e.target
+
+      setSortBy(value)
+
+      if (value === 'asc') {
+        setData(preve => preve.sort((a,b)=> a.sellingPrice - b.sellingPrice))
+      }
+      else if (value === 'dsc') {
+        setData(preve => preve.sort((a,b)=> b.sellingPrice - a.sellingPrice))
+      }
+    }
+ 
+
+    useEffect(()=>{
+
+    },[sortBy])
+
+    
   return (
     <div className='container mx-auto p-5'>
         {/**desktop version */}
@@ -94,12 +120,12 @@ const CategoryProduct = () => {
                   
                   <form className='text-sm flex-col grid gap-2 py-2'>
                     <div className='flex items-center gap-3'>
-                        <input type='radio' name='sortBy' />
+                        <input type='radio' name='sortBy' checked={sortBy==='asc'} value={"asc"} onChange={handleOnChangeSortBy} />
                         <label>Price: Low to High</label>
                     </div>
 
                     <div className='flex items-center gap-3'>
-                        <input type='radio' name='sortBy' />
+                        <input type='radio' name='sortBy' checked={sortBy==='dsc'} value={"dsc"} onChange={handleOnChangeSortBy}/>
                         <label>Price: High to Low</label>
                     </div>
                   </form>
