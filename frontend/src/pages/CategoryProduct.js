@@ -3,11 +3,13 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import productCategory from '../helpers/productCategory'
 import VerticalCard from '../components/VerticalCard'
 import SummaryApi from '../common'
+import Audio, { Bars, ThreeCircles, ThreeDots } from 'react-loader-spinner';
 
 const CategoryProduct = () => {
     
     const [data,setData] = useState([])
     const navigate = useNavigate()
+    const [showLoader, setShowLoader] = useState(false);
     const [loading, setLoading] = useState(false)
     const location = useLocation()
     const urlSearch = new URLSearchParams(location.search)
@@ -29,6 +31,7 @@ const CategoryProduct = () => {
     
     
     const fetchData = async()=>{
+      setShowLoader(true)
         const response = await fetch(SummaryApi.filterProduct.url,{
           method: SummaryApi.filterProduct.method,
           headers: {
@@ -41,6 +44,9 @@ const CategoryProduct = () => {
         const dataResponse = await response.json()
 
         setData(dataResponse?.data || [])
+        setShowLoader(false)
+        console.log("dataResponse from api",dataResponse);
+        
         
     }
     
@@ -153,7 +159,14 @@ const CategoryProduct = () => {
           </div>
 
           {/**right side (product) */}
-          <div className='px-4'>
+
+        <div>
+        {showLoader ? (
+        <div className="h-96 flex justify-center items-center">
+          <ThreeDots type="ThreeDots" color="#7542ff" height={80} width={80} />
+        </div>
+      ) : (
+        <div className='px-4'>
           <p className='font-medium text-slate-800 text-lg my-2'>Search Results : {data.length}</p>
            <div className='min-h-[calc(100vh-120px)] overflow-y-scroll max-h-[calc(100vh-120px)]'>
            {
@@ -163,6 +176,9 @@ const CategoryProduct = () => {
             }
            </div>
           </div>
+      )}
+        </div>
+          
         </div>
 
       </div>

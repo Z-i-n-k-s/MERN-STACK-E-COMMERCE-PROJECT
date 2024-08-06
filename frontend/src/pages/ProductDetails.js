@@ -1,10 +1,12 @@
-import React, { useCallback, useEffect, useState, Suspense, lazy } from 'react';
+import React, { useCallback, useEffect, useState, Suspense, lazy, useContext } from 'react';
 
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import SummaryApi from '../common'
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa6";
 import displayBDTCurrency from '../helpers/displayCurrency';
+import addToCart from '../helpers/addToCart';
+import Context from '../context';
 
 const CategoryWisepProductDisplay = lazy(() => import('../components/CategoryWiseProductDisplay'));
 
@@ -32,6 +34,10 @@ const ProductDetails = () => {
     y: 0
   })
   const [zoomImage, setZoomImage] = useState(false)
+
+  const { fetchUserAddToCart } = useContext(Context);
+
+  const navigate = useNavigate()
 
   console.log("product id", params)
 
@@ -81,6 +87,18 @@ const ProductDetails = () => {
   const handleLeaveImageZoom = () => {
     setZoomImage(false)
   }
+
+  const handelAddToCart = async(e,id) =>{
+    await addToCart(e,id)
+    fetchUserAddToCart()
+    
+  }
+
+  const handleBuyProduct = async(e,id)=>{
+    await addToCart(e,id)
+    fetchUserAddToCart()
+    navigate("/cart")
+  }
   return (
     <div className='container mx-auto p-4'>
 
@@ -123,9 +141,9 @@ const ProductDetails = () => {
 
                 <div className='flex gap-2 lg:flex-col overflow-scroll scrollbar-none h-full'>
                   {
-                    productImageListLoading.map(e1 => {
+                    productImageListLoading.map((e1,index) => {
                       return (
-                        <div className='h-20 w-20 bg-slate-200 rounded animate-pulse' key={"loadingImage"}>
+                        <div className='h-20 w-20 bg-slate-200 rounded animate-pulse' key={"loadingImage"+index}>
 
                         </div>
                       )
@@ -140,7 +158,7 @@ const ProductDetails = () => {
                     data?.productImage?.map((imgURL, index) => {
                       return (
                         <div className='h-20 w-20 bg-slate-200 rounded p-1' key={imgURL}>
-                          <img src={imgURL} className='w-full object-scale-down mix-blend-multiply cursor-pointer' onMouseEnter={() => handleMouseEnterProduct(imgURL)} onClick={() => handleMouseEnterProduct(imgURL)} />
+                          <img src={imgURL} className='w-full h-full object-scale-down mix-blend-multiply cursor-pointer' onMouseEnter={() => handleMouseEnterProduct(imgURL)} onClick={() => handleMouseEnterProduct(imgURL)} />
 
                         </div>
                       )
@@ -156,7 +174,7 @@ const ProductDetails = () => {
         {/**product details */}
         {
           loading ? (
-            <div className='grid gap-1 w-full'>
+            <div className='grid gap-1 w-full' >
               <p className='bg-slate-200 animate-pulse h-6 lg:h-8 w-full rounded-full inline-block   '></p>
               <h2 className='text-2xl lg:text-4xl font-medium h-4 lg:h-8 bg-slate-200 animate-pulse w-full'></h2>
               <p className='captalize text-slate-400 bg-slate-200 min-w-[100px] animate-pulse h-6  lg:h-8 w-full'></p>
@@ -194,8 +212,8 @@ const ProductDetails = () => {
                   <p className='text-slate-400 line-through'>{displayBDTCurrency(data.price)}</p>
                 </div>
                 <div className='flex items-center gap-3 my-2'>
-                  <button className='border-2 border-red-600 rounded px-3 py-1 min-w-[120px] text-red-600 font-medium hover:bg-red-600 hover:text-white'>Buy</button>
-                  <button className='border-2 border-red-600 rounded px-3 py-1 min-w-[120px]font-medium text-white bg-red-600 hover:text-red-600 hover:bg-white'>Add To Cart</button>
+                  <button className='border-2 border-red-600 rounded px-3 py-1 min-w-[120px] text-red-600 font-medium hover:bg-red-600 hover:text-white' onClick={(e)=>handleBuyProduct(e,data?._id)} >Buy</button>
+                  <button className='border-2 border-red-600 rounded px-3 py-1 min-w-[120px]font-medium text-white bg-red-600 hover:text-red-600 hover:bg-white'onClick={(e)=>handelAddToCart(e,data?._id)}>Add To Cart</button>
                 </div>
                 <div>
                   <p className='text-slate-600 font-medium my-1'>Description</p>
