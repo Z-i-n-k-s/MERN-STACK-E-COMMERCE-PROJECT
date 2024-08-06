@@ -1,21 +1,42 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import productCategory from '../helpers/productCategory'
-import CategoryWisepProductDisplay from '../components/CategoryWiseProductDisplay'
 import VerticalCard from '../components/VerticalCard'
+import SummaryApi from '../common'
 
 const CategoryProduct = () => {
-    const params = useParams()
+    
     const [data,setData] = useState([])
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
-    const [selectCategory,setSelectCategory] = useState({})
+    const location = useLocation()
+    const urlSearch = new URLSearchParams(location.search)
+    const urlCategoryListinArray = urlSearch.getAll("category")
+
+    const urlCategoryListObject = {}
+    urlCategoryListinArray.forEach(el =>{
+      urlCategoryListObject[el] = true
+    })
+   
+    
+
+    const [selectCategory,setSelectCategory] = useState(urlCategoryListObject)
+    const [filterCategoryList , setFilterCategoryList] = useState([])
     
     const fetchData = async()=>{
-        const response = await fetch()
+        const response = await fetch(SummaryApi.filterProduct.url,{
+          method: SummaryApi.filterProduct.method,
+          headers: {
+            "content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            category: filterCategoryList
+          })
+        })
         const dataResponse = await response.json()
 
         setData(dataResponse?.data || [])
-        console.log(dataResponse)
+        
     }
     
     const handleSelectCategory = (e)=>{
@@ -29,7 +50,9 @@ const CategoryProduct = () => {
               })
    
     }
-    console.log('selectCategory',selectCategory)
+    useEffect(()=>{
+      fetchData()
+    },[filterCategoryList])
     
     
     useEffect(()=>{
@@ -40,8 +63,22 @@ const CategoryProduct = () => {
           
            return null
          }).filter(el =>el)
+        
+         setFilterCategoryList(arrayOfCategory)
 
-         console.log("Selected category",arrayOfCategory);
+         //format for url change when change on the checkbox
+         const urlformat = arrayOfCategory.map((el,index) => {
+          if ((arrayOfCategory.length - 1)===index) {
+            return `category=${el}`
+          }
+
+          return `category=${el}&&`
+         })
+
+         
+         
+          navigate("/product-category?"+urlformat.join(""))
+         
          
     },[selectCategory])
   return (
@@ -90,12 +127,15 @@ const CategoryProduct = () => {
           </div>
 
           {/**right side (product) */}
-          <div>
-            {
-              data.length !==0 && !loading && (
+          <div className='px-4'>
+          <p className='font-medium text-slate-800 text-lg my-2'>Search Results : {data.length}</p>
+           <div className='min-h-[calc(100vh-120px)] overflow-y-scroll max-h-[calc(100vh-120px)]'>
+           {
+              data.length !==0 && (
                 <VerticalCard data={data} loading={loading}/>
               )
             }
+           </div>
           </div>
         </div>
 

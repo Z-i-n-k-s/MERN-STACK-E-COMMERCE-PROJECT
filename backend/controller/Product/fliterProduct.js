@@ -1,6 +1,22 @@
+const productModel = require("../../models/productModel")
+
 const filterProductController = async(req,res)=>{
     try {
-        
+        const categoryList = req?.body?.category || []
+
+        const product = await productModel.find({
+            category : {
+                $in : categoryList
+            }
+        })
+
+        res.json({
+            data:  product,
+            message: "Product found successfully",
+            error: false,
+            success: true
+        })
+
 }catch(err){
     res.json(
         {
@@ -11,3 +27,5 @@ const filterProductController = async(req,res)=>{
     )
 }
 }
+
+module.exports = filterProductController
