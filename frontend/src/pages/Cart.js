@@ -100,6 +100,25 @@ const deleteCartProduct = async(id)=>{
   }
 }
 
+const handelPayment = async()=>{
+  
+  const response = await fetch(SummaryApi.payment.url,{
+    method : SummaryApi.payment.method,
+    credentials : 'include',
+    headers : {
+        "content-type" : 'application/json'
+    },
+    body : JSON.stringify({
+      cartItems : data
+  })
+})               
+
+const responseData = await response.json()
+
+console.log("payment response",responseData)
+
+}
+
 const totalQty = data.reduce((previousValue,currentValue)=> previousValue + currentValue.quantity,0)
 const totalPrice = data.reduce((preve,curr)=> preve + (curr.quantity * curr?.productId?.sellingPrice) ,0)
 
@@ -182,7 +201,9 @@ return (
     </div>
 
     {/* Total product */}
-    <div className="w-full max-w-sm lg:mt-0 mt-5">
+    {
+      data[0]&&(
+        <div className="w-full max-w-sm lg:mt-0 mt-5">
       {loading ? (
         <div className="h-36 bg-gray-200 border border-gray-300 animate-pulse rounded-lg"></div>
       ) : (
@@ -198,12 +219,15 @@ return (
             <p>{displayBDTCurrency(totalPrice)}</p>
           </div>
 
-          <button className="bg-green-600 p-2 text-white w-full mt-2 rounded-b-lg hover:bg-green-700 transition duration-300">
+          <button className="bg-green-600 p-2 text-white w-full mt-2 rounded-b-lg hover:bg-green-700 transition duration-300"onClick={handelPayment}>
             Payment
           </button>
         </div>
       )}
     </div>
+      )
+    }
+    
   </div>
 </div>
 
