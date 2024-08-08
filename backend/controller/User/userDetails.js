@@ -3,9 +3,9 @@ const userModel = require('../../models/userModel')
 
 async function userDetailsController(req,res){
     try{
-        console.log("user id ",req.userId)
+       
         const user = await userModel.findById(req.userId)
-        console.log("user found with",user)
+        
 
         res.status(200).json({
             data : user,

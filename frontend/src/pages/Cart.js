@@ -3,6 +3,7 @@ import SummaryApi from "../common";
 import Context from "../context";
 import displayBDTCurrency from "../helpers/displayCurrency";
 import { MdDelete } from "react-icons/md";
+import {loadStripe} from '@stripe/stripe-js';
 
 const Cart = () => {
   const [data, setData] = useState([]);
@@ -101,6 +102,7 @@ const deleteCartProduct = async(id)=>{
 }
 
 const handelPayment = async()=>{
+  const stripePromise = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
   
   const response = await fetch(SummaryApi.payment.url,{
     method : SummaryApi.payment.method,
@@ -111,9 +113,15 @@ const handelPayment = async()=>{
     body : JSON.stringify({
       cartItems : data
   })
-})               
+}
+
+)               
 
 const responseData = await response.json()
+
+if(responseData?.id){
+  stripePromise.redirectToCheckout({ sessionId : responseData.id})
+}
 
 console.log("payment response",responseData)
 
