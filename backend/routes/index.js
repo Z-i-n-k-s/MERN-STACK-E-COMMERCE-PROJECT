@@ -29,6 +29,7 @@ const searchProduct = require('../controller/Product/searchProduct')
 const filterProductController = require('../controller/Product/fliterProduct')
 const orderController = require('../controller/Order/orderController')
 const orderListController = require('../controller/Order/orderListController')
+const allOrderController = require('../controller/Order/allOrderController')
 
 
 
@@ -69,6 +70,7 @@ router.post("/delete-cart-product",authToken,deleteAddToCartProduct)
 
 router.post("/order",authToken,orderController)
 router.post('/order-list',authToken,orderListController)
+router.post('/all-orders',authToken,allOrderController)
 
 
 

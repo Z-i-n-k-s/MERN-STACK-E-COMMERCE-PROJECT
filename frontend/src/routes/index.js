@@ -13,6 +13,7 @@ import Cart from "../pages/Cart";
 import SearchProduct from "../pages/SearchProduct";
 import Success from "../pages/Success";
 import OrderPage from "../pages/OrderPage";
+import AllOrder from "../pages/AllOrder";
 
 
 
@@ -43,6 +44,7 @@ const router  = createBrowserRouter([
                 path : "product-category",
                 element:<CategoryProduct/>
             },
+          
             {
                 path : "order",
                 element:<OrderPage/>
@@ -75,7 +77,11 @@ const router  = createBrowserRouter([
                     {
                         path: "all-products",
                         element: <AllProducts/>
-                    }
+                    },
+                    {
+                        path : "allorder",
+                        element:<AllOrder/>
+                    },
                 ]
             },
           
