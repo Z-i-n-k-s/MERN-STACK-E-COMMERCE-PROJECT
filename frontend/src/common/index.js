@@ -92,6 +92,10 @@ const SummaryApi = {
     url: `${backendDomin}/api/filter-product`,
     method: "post",
   },
+  order: {
+    url: `${backendDomin}/api/order`,
+    method: "post",
+  },
 };
 
 export default SummaryApi;

@@ -11,6 +11,8 @@ import CategoryProduct from "../pages/CategoryProduct";
 import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
 import SearchProduct from "../pages/SearchProduct";
+import Success from "../pages/Success";
+import OrderPage from "../pages/OrderPage";
 
 
 
@@ -42,8 +44,17 @@ const router  = createBrowserRouter([
                 element:<CategoryProduct/>
             },
             {
+                path : "order",
+                element:<OrderPage/>
+            },
+            {
                 path:"product/:id",
                 element : <ProductDetails/>
+            },
+            {
+                path:"success",
+                element : <Success/>
+
             },
             {
                 path:"cart",

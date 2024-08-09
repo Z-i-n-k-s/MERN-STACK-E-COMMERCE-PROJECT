@@ -3,10 +3,12 @@ import SummaryApi from "../common";
 import Context from "../context";
 import displayBDTCurrency from "../helpers/displayCurrency";
 import { MdDelete } from "react-icons/md";
+import PaymentDetails from "../components/Payment";
 
 const Cart = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [openPayment,setOpenPayment]=useState(false);
   const context = useContext(Context);
   const loadingCart = new Array(4).fill(null);
 
@@ -24,6 +26,7 @@ const Cart = () => {
     console.log("data cart", responseData);
     if (responseData.success) {
       setData(responseData.data);
+      console.log("cart data ",responseData.data)
       setLoading(false);
     }
   };
@@ -198,13 +201,27 @@ return (
             <p>{displayBDTCurrency(totalPrice)}</p>
           </div>
 
-          <button className="bg-green-600 p-2 text-white w-full mt-2 rounded-b-lg hover:bg-green-700 transition duration-300">
+          <button className="bg-green-600 p-2 text-white w-full mt-2 rounded-b-lg hover:bg-green-700 transition duration-300" onClick={() => {
+                    
+                    setOpenPayment(true);
+                  }}>
             Payment
           </button>
+         
         </div>
+        
       )}
-    </div>
+    </div> 
+   
   </div>
+   {openPayment && (
+          <PaymentDetails
+            totalItems={totalQty}
+            totalItemsPrice={totalPrice}
+            onClose={() => setOpenPayment(false)}
+            cartItems={data}
+          />
+        )}
 </div>
 
 );
