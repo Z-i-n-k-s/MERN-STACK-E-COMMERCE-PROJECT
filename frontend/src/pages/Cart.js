@@ -108,10 +108,11 @@ const totalPrice = data.reduce((preve,curr)=> preve + (curr.quantity * curr?.pro
 
 return (
   <div className="container mx-auto">
+    {(data.length === 0 && !loading) ? (
     <div className="text-center text-lg my-3">
-      {data.length === 0 && !loading && <p className="text-lg text-gray-600">No items in cart</p>}
+      <p className="text-lg text-gray-600">No items in cart</p>
     </div>
-
+):(
     <div className="flex flex-col lg:flex-row gap-10 justify-between p-4 items-start">
       {/* View product */}
       <div className="w-full max-w-3xl">
@@ -218,6 +219,7 @@ return (
         )}
       </div>
     </div>
+)}
     {openPayment && (
       <PaymentDetails
         totalItems={totalQty}
