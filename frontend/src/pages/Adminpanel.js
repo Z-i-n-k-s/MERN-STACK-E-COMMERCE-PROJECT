@@ -36,6 +36,7 @@ const Adminpanel = () => {
                         <Link to={"all-products"}className='px-2 py-1 hover:bg-slate-100'>All product</Link>
                         <Link to={"all-users"}className='px-2 py-1 hover:bg-slate-100'>All Users</Link>
                         <Link to={"allorder"}className='px-2 py-1 hover:bg-slate-100'>All Orders</Link>
+                        <Link to={"sells"}className='px-2 py-1 hover:bg-slate-100'>Summary</Link>
                         
                     </nav>
 
