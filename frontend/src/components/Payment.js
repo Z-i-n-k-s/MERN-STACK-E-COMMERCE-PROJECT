@@ -32,6 +32,8 @@ const PaymentDetails = ({totalItems,totalItemsPrice,onClose, cartItems,callFunc 
     const responseData = await response.json()
     if(responseData.success){
       navigate("/success")
+      callFunc()
+
     }
 
     }

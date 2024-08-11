@@ -30,7 +30,9 @@ const OrderPage = () => {
     <div>
     {
       !data.length && (
-        <p>No Order available</p>
+        <div className="text-center text-lg my-3">
+      <p className="text-lg text-gray-600">No Previous Orders</p>
+    </div>
       )
     }
 

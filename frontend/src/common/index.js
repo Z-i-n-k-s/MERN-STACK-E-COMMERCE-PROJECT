@@ -22,7 +22,7 @@ const SummaryApi = {
   },
   allUser: {
     url: `${backendDomin}/api/all-user`,
-    method: "get",
+    method: "post",
   },
   userSearch: {
     url: `${backendDomin}/api/user-search`,
@@ -72,13 +72,17 @@ const SummaryApi = {
     url: `${backendDomin}/api/addtocart`,
     method: "post",
   },
+  clearAddToCartProduct: {
+    url: `${backendDomin}/api/clear-cart`,
+    method: "post",
+  },
   addToCartProductCount: {
     url: `${backendDomin}/api/countCartProduct`,
-    method: "get",
+    method: "post",
   },
   addToCartProductView: {
     url: `${backendDomin}/api/view-cart-product`,
-    method: "get",
+    method: "post",
   },
   updateCartProduct: {
     url: `${backendDomin}/api/update-cart-product`,

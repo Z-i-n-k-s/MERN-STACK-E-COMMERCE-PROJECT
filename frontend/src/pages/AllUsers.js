@@ -38,6 +38,9 @@ const AllUsers = () => {
     const fetchData = await fetch(SummaryApi.allUser.url, {
       method: SummaryApi.allUser.method,
       credentials: "include",
+      headers: {
+        "content-type": "application/json",
+      },
     });
 
     const dataResponse = await fetchData.json();

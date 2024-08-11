@@ -36,7 +36,7 @@ async function authToken(req, res, next) {
                             sameSite: 'None'
                         };
 
-                        res.cookie("token", token, tokenOption);
+                        res.cookie("token", token, { ...tokenOption, expires: new Date(Date.now() + 20 * 60 * 1000) })
                         console.log("token from cookie after gen -> ",req.cookies?.token)
 
                         req.userId = newTokenData._id;

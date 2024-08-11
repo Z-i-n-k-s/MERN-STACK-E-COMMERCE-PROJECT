@@ -43,7 +43,10 @@ function App() {
     try {
       const dataResponse = await fetch(SummaryApi.addToCartProductCount.url, {
         method: SummaryApi.addToCartProductCount.method,
-        credentials: 'include'
+        credentials: 'include',
+        headers: {
+          "content-type": "application/json",
+        },
       });
       const dataApi = await dataResponse.json();
 

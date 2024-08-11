@@ -103,6 +103,30 @@ const deleteCartProduct = async(id)=>{
   }
 }
 
+
+
+
+const clearCartProduct = async()=>{
+  const response = await fetch(SummaryApi.clearAddToCartProduct.url,{
+      method : SummaryApi.clearAddToCartProduct.method,
+      credentials : 'include',
+      headers : {
+          "content-type" : 'application/json'
+      },
+      
+  })
+
+  const responseData = await response.json()
+
+  if(responseData.success){
+      fetchData()
+      context.fetchUserAddToCart()
+  }
+}
+
+
+
+
 const totalQty = data.reduce((previousValue,currentValue)=> previousValue + currentValue.quantity,0)
 const totalPrice = data.reduce((preve,curr)=> preve + (curr.quantity * curr?.productId?.sellingPrice) ,0)
 
@@ -211,7 +235,7 @@ return (
 
             <button
               className="bg-red-600 text-white w-full mt-2 p-2 rounded-b-lg hover:bg-red-700 transition duration-300"
-              // onClick={() => clearCart()}
+              onClick={clearCartProduct}
             >
               Clear Cart
             </button>
@@ -226,6 +250,7 @@ return (
         totalItemsPrice={totalPrice}
         onClose={() => setOpenPayment(false)}
         cartItems={data}
+        callFunc = {clearCartProduct}
       />
     )}
   </div>
