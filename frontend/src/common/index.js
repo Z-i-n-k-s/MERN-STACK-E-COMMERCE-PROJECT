@@ -22,7 +22,7 @@ const SummaryApi = {
   },
   allUser: {
     url: `${backendDomin}/api/all-user`,
-    method: "get",
+    method: "post",
   },
   userSearch: {
     url: `${backendDomin}/api/user-search`,
@@ -52,6 +52,10 @@ const SummaryApi = {
     url: `${backendDomin}/api/update-product`,
     method: "post",
   },
+  deleteProduct: {
+    url: `${backendDomin}/api/delete-product`,
+    method: "post",
+  },
   categoryProduct: {
     url: `${backendDomin}/api/get-categoryProduct`,
     method: "get",
@@ -68,13 +72,17 @@ const SummaryApi = {
     url: `${backendDomin}/api/addtocart`,
     method: "post",
   },
+  clearAddToCartProduct: {
+    url: `${backendDomin}/api/clear-cart`,
+    method: "post",
+  },
   addToCartProductCount: {
     url: `${backendDomin}/api/countCartProduct`,
-    method: "get",
+    method: "post",
   },
   addToCartProductView: {
     url: `${backendDomin}/api/view-cart-product`,
-    method: "get",
+    method: "post",
   },
   updateCartProduct: {
     url: `${backendDomin}/api/update-cart-product`,
@@ -90,6 +98,18 @@ const SummaryApi = {
   },
   filterProduct: {
     url: `${backendDomin}/api/filter-product`,
+    method: "post",
+  },
+  order: {
+    url: `${backendDomin}/api/order`,
+    method: "post",
+  },
+  orderList: {
+    url: `${backendDomin}/api/order-list`,
+    method: "post",
+  },
+  allOrder: {
+    url: `${backendDomin}/api/all-orders`,
     method: "post",
   },
 };

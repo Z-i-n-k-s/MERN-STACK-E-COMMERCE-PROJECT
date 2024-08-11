@@ -108,15 +108,25 @@ const Header = () => {
                 {menuDisplay && (
                   <div className="absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded">
                     <nav>
-                      {user?.role === ROLE.ADMIN && (
-                        <Link
-                          to={"/admin-panel/all-products"}
-                          className="whitespace-nowrap hidden md:block hover:bg-slate-100 p-2"
-                          onClick={() => setMenuDisplay((preve) => !preve)}
-                        >
-                          Admin Panel
-                        </Link>
-                      )}
+                    {user?.role === ROLE.ADMIN && (
+  <Link
+    to={"/admin-panel/all-products"}
+    className="whitespace-nowrap hidden md:block hover:bg-slate-100 p-2 text-center"
+    onClick={() => setMenuDisplay((preve) => !preve)}
+  >
+    Admin Panel
+  </Link>
+)}
+
+{(user?.role === ROLE.GENERAL || user?.role === ROLE.ADMIN) && (
+  <Link
+    to={"/order"}
+    className="whitespace-nowrap hidden md:block hover:bg-slate-100 p-2 text-center"
+    onClick={() => setMenuDisplay((preve) => !preve)}
+  >
+    Orders
+  </Link>
+)}
                       {(user?.role === ROLE.GENERAL ||
                         user?.role === ROLE.ADMIN) && (
                         <div className="flex justify-center">
