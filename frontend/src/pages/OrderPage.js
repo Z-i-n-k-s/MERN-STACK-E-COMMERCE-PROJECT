@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import SummaryApi from '../common'
 import moment from 'moment'
 import displayBDTCurrency from '../helpers/displayCurrency'
+import Audio, { Bars, ThreeCircles, ThreeDots } from "react-loader-spinner";
 
 
 const OrderPage = () => {
   const [data,setData] = useState([])
+  const [loading, setLoading] = useState(false);
 
   const fetchOrderDetails = async()=>{
+    setLoading(true)
     const response = await fetch(SummaryApi.orderList.url,{
       method : SummaryApi.orderList.method,
       credentials : 'include',
@@ -19,6 +22,7 @@ const OrderPage = () => {
     const responseData = await response.json()
 
     setData(responseData.data)
+    setLoading(false)
     console.log("order list",responseData)
   }
 
@@ -28,15 +32,18 @@ const OrderPage = () => {
 
   return (
     <div>
-    {
-      !data.length && (
-        <div className="text-center text-lg my-3">
-      <p className="text-lg text-gray-600">No Previous Orders</p>
+       {(data.length === 0 && !loading) ? (
+    <div className="text-center text-lg my-3">
+      <p className="text-lg text-gray-600">No items in cart</p>
     </div>
-      )
-    }
+):(
 
     <div className='p-4 w-full'>
+      {loading && (
+         <div className="h-96 flex justify-center items-center">
+         <ThreeDots type="ThreeDots" color="#7542ff" height={80} width={80} />
+       </div>
+      )}
       {
         data.map((order, index) => {
           console.log("Mapping order:", order);
@@ -78,6 +85,7 @@ const OrderPage = () => {
         })
       }
     </div>
+)}
   </div>
 )
 }

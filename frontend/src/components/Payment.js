@@ -17,6 +17,7 @@ const PaymentDetails = ({totalItems,totalItemsPrice,onClose, cartItems,callFunc 
     console.log("cartItems from payment",cartItems)
 
     const handelPayment = async()=>{
+      setShowLoader(true)
 
       const response = await fetch(SummaryApi.order.url,{
         method : SummaryApi.order.method,
@@ -31,6 +32,7 @@ const PaymentDetails = ({totalItems,totalItemsPrice,onClose, cartItems,callFunc 
     })
     const responseData = await response.json()
     if(responseData.success){
+      setShowLoader(false)
       navigate("/success")
       callFunc()
 
