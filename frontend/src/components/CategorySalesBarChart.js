@@ -6,7 +6,7 @@ const CategorySalesBarChart = ({ data }) => {
   const chartData = useMemo(() => {
     const categoryMap = {};
 
-    // Aggregate quantities by category
+    
     data.forEach(order => {
       order.productDetails.forEach(product => {
         const category = product.productId.category;
@@ -17,15 +17,14 @@ const CategorySalesBarChart = ({ data }) => {
       });
     });
 
-    // Convert to array and sort alphabetically
+    
     const sortedCategories = Object.keys(categoryMap)
       .map(category => ({
         category,
         totalQuantity: categoryMap[category],
       }))
-      .sort((a, b) => a.category.localeCompare(b.category)); // Alphabetical sorting
+      .sort((a, b) => b.totalQuantity - a.totalQuantity); 
 
-    // Limit to top 6 categories
     const topCategories = sortedCategories.slice(0, 6);
 
     return topCategories;
@@ -44,8 +43,5 @@ const CategorySalesBarChart = ({ data }) => {
     </ResponsiveContainer>
   );
 };
-
-
-
 
 export default CategorySalesBarChart;
