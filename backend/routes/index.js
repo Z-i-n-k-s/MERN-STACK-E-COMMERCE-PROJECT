@@ -32,6 +32,8 @@ const orderListController = require('../controller/Order/orderListController')
 const allOrderController = require('../controller/Order/allOrderController')
 const deleteProductController = require('../controller/Product/deleteProduct')
 const deleteAllAddToCartProducts = require('../controller/User/clearAddToCart')
+const AddReviewController = require('../controller/Product/addProductReview')
+const GetReviewsController = require('../controller/Product/getProductReview')
 
 
 
@@ -75,6 +77,11 @@ router.post("/delete-cart-product",authToken,deleteAddToCartProduct)
 router.post("/order",authToken,orderController)
 router.post('/order-list',authToken,orderListController)
 router.post('/all-orders',authToken,allOrderController)
+
+//review
+
+router.post("/add-review",authToken,AddReviewController)
+router.post("/get-review",GetReviewsController)
 
 
 
