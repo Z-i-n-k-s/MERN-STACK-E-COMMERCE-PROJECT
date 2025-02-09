@@ -112,6 +112,14 @@ const SummaryApi = {
     url: `${backendDomin}/api/all-orders`,
     method: "post",
   },
+  addReview: {
+    url: `${backendDomin}/api/add-review`,
+    method: "post",
+  },
+  getReviews: {
+    url: `${backendDomin}/api/get-review`,
+    method: "post",
+  },
 };
 
 export default SummaryApi;
