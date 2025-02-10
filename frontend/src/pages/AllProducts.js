@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import SummaryApi from "../common";
 import UploadProduct from "../components/UploadProduct";
 import AdminProductCard from "../components/AdminProductCard";
-import Audio, { Bars, ThreeCircles, ThreeDots } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 
 const AllProducts = () => {
   const [openUploadProduct, setOpenUploadProduct] = useState(false);
   const [allProduct, setAllProduct] = useState([]);
+  const [groupedProducts, setGroupedProducts] = useState({});
   const [showLoader, setShowLoader] = useState(false);
 
   const fetchAllProduct = async () => {
@@ -15,13 +16,25 @@ const AllProducts = () => {
     const dataResponse = await response.json();
 
     console.log("product data", dataResponse);
-    setAllProduct(dataResponse?.data || []);
-    if (dataResponse.success) {
-      setShowLoader(false);
-    } else {
-      setShowLoader(false);
-    }
+    const products = dataResponse?.data || [];
+    setAllProduct(products);
+    groupByCategory(products);
+
+    setShowLoader(false);
   };
+
+  const groupByCategory = (products) => {
+    const grouped = products.reduce((acc, product) => {
+      const category = product.category || "Uncategorized";
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(product);
+      return acc;
+    }, {});
+    setGroupedProducts(grouped);
+  };
+
   useEffect(() => {
     fetchAllProduct();
   }, []);
@@ -29,34 +42,42 @@ const AllProducts = () => {
   return (
     <div>
       <div className="bg-white py-2 px-4 flex justify-between items-center">
-        <h2 className="font-bold text-xl text-red-600">All Product</h2>
+        <h2 className="font-bold text-lg">All Products</h2>
         <button
-          className="border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white  transition-all py-1 px-3 rounded-full "
+          className="border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-all py-1 px-3 rounded-full"
           onClick={() => setOpenUploadProduct(true)}
         >
           Upload Product
         </button>
       </div>
-      {/* all product */}
+
+      {/* All products grouped by category */}
       {showLoader ? (
         <div className="h-96 flex justify-center items-center">
           <ThreeDots type="ThreeDots" color="#7542ff" height={80} width={80} />
         </div>
       ) : (
-        <div className="flex items-center flex-wrap gap-5 py-4 h-[calc(100vh-190px)] overflow-scroll">
-          {allProduct.map((product, index) => {
-            return (
-              <AdminProductCard
-                data={product}
-                key={index + "allProduct"}
-                fetchdata={fetchAllProduct}
-              />
-            );
-          })}
+        <div className="py-4">
+          {Object.keys(groupedProducts).map((category) => (
+            <div key={category} className="mb-6">
+              <h3 className="font-semibold text-xl mb-4 border-b pb-2">
+                {category}
+              </h3>
+              <div className="flex items-center flex-wrap gap-5">
+                {groupedProducts[category].map((product, index) => (
+                  <AdminProductCard
+                    data={product}
+                    key={index + "categoryProduct"}
+                    fetchdata={fetchAllProduct}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       )}
 
-      {/**upload product component */}
+      {/* Upload product component */}
       {openUploadProduct && (
         <UploadProduct
           onClose={() => setOpenUploadProduct(false)}

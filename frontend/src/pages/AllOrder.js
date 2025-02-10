@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import SummaryApi from "../common";
 import displayBDTCurrency from "../helpers/displayCurrency";
 import moment from "moment";
-import Audio, { Bars, ThreeCircles, ThreeDots } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 
 const AllOrder = () => {
-  const [data, setData] = useState([]); // To store fetched data
+  const [data, setData] = useState([]); // To store fetched orders
   const [loading, setLoading] = useState(true); // To indicate loading state
 
   const fetchOrderDetails = async () => {
@@ -18,18 +18,18 @@ const AllOrder = () => {
         },
       });
 
-      if (response.error) {
+      if (!response.ok) {
         throw new Error("Network response was not ok");
       }
 
       const responseData = await response.json();
-      setData(Array.isArray(responseData.data) ? responseData.data : []); // Ensure data is an array
-      console.log("admin panel order  list", responseData);
+      setData(Array.isArray(responseData.data) ? responseData.data : []);
+      console.log("admin panel order list", responseData);
     } catch (error) {
       console.error("Error fetching order details:", error);
       // Handle error state if needed
     } finally {
-      setLoading(false); // Set loading to false after data fetch is complete
+      setLoading(false);
     }
   };
 
@@ -37,19 +37,54 @@ const AllOrder = () => {
     fetchOrderDetails();
   }, []);
 
+  // Handler for updating the order status
+  const handleStatusChange = async (orderId, newStatus) => {
+    try {
+      // Call the API endpoint to update the order status
+      const response = await fetch(SummaryApi.updateOrderStatus.url, {
+        method: SummaryApi.updateOrderStatus.method,
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          orderId,
+          status: newStatus,
+        }),
+      });
+      const result = await response.json();
+      if (result.success) {
+        // Update the order status in the state
+        setData((prevData) =>
+          prevData.map((order) =>
+            order._id === orderId ? { ...order, status: newStatus } : order
+          )
+        );
+      } else {
+        console.error("Failed to update order status", result.message);
+      }
+    } catch (error) {
+      console.error("Error updating order status:", error);
+    }
+  };
+
   return (
-    <div className="h-[calc(100vh-190px)] overflow-y-scroll p-4 bg-gray-50">
+    <div className="p-4 bg-gray-50">
       {loading ? (
         <div className="h-96 flex justify-center items-center">
-          <ThreeDots type="ThreeDots" color="#7542ff" height={80} width={80} />
+          <ThreeDots color="#7542ff" height={80} width={80} />
         </div>
       ) : data.length === 0 ? (
-        <p className="text-center text-xl font-semibold text-gray-700">No Orders available</p>
+        <p className="text-center text-xl font-semibold text-gray-700">
+          No Orders available
+        </p>
       ) : (
         <div className="w-full">
           {data.map((order) => (
             <div key={order._id} className="mb-6 p-4 bg-white shadow-md rounded-lg">
-              <p className="font-bold text-2xl mb-2">{moment(order.createdAt).format("LL")}</p>
+              <p className="font-bold text-2xl mb-2">
+                {moment(order.createdAt).format("LL")}
+              </p>
               <div className="border border-gray-300 rounded-lg">
                 <div className="flex flex-col lg:flex-row gap-4 p-4">
                   <div className="flex-1 grid gap-4">
@@ -73,7 +108,9 @@ const AllOrder = () => {
                             <div className="text-lg text-red-600">
                               {displayBDTCurrency(product.productId.price)}
                             </div>
-                            <p className="text-gray-600 text-base">Quantity: {product.quantity}</p>
+                            <p className="text-gray-600 text-base">
+                              Quantity: {product.quantity}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -88,6 +125,26 @@ const AllOrder = () => {
                     Total Amount: {displayBDTCurrency(order.totalAmount)}
                   </div>
                 </div>
+                <div className="flex justify-between items-center p-4 border-t border-gray-300">
+                  <div>
+                    <label className="mr-2 font-semibold">Order Status:</label>
+                    <select
+                      value={order.status}
+                      onChange={(e) =>
+                        handleStatusChange(order._id, e.target.value)
+                      }
+                      className="border border-gray-300 rounded p-1"
+                    >
+                      <option value="pending">Pending</option>
+                      <option value="shipped">Shipped</option>
+                      <option value="delivered">Delivered</option>
+                    </select>
+                  </div>
+                  <div>
+                    <span className="font-semibold">Received Status: </span>
+                    {order.receivedStatus ? "Yes" : "No"}
+                  </div>
+                </div>
               </div>
             </div>
           ))}
@@ -95,6 +152,7 @@ const AllOrder = () => {
       )}
     </div>
   );
+  
 };
 
 export default AllOrder;
