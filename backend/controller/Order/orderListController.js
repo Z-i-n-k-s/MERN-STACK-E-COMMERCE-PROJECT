@@ -1,25 +1,25 @@
-const orderModel = require("../../models/orderModel")
+const orderModel = require("../../models/orderModel");
 
-
-const orderListController = async(request,response)=>{
+const orderListController = async (request, response) => {
     try {
-        const currentUserId = request.userId
+        const currentUserId = request.userId;
 
-        const orderList = await orderModel.find({ userId : currentUserId }).sort({ createdAt : -1 })
-
+        const orderList = await orderModel.find({ userId: currentUserId })
+            .sort({ createdAt: -1 })
+            .select("-__v");
 
         response.json({
-            data : orderList,
-            message : "Order list",
-            success : true
-        })
+            data: orderList,
+            message: "Order list retrieved successfully",
+            success: true
+        });
 
     } catch (error) {
         response.status(500).json({
-            message : error.message || error,
-            error : true
-        })
+            message: error.message || error,
+            error: true
+        });
     }
-}
+};
 
-module.exports = orderListController
+module.exports = orderListController;

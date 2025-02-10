@@ -9,7 +9,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
         <div className={`bg-white customShadow min-h-screen transition-all duration-300 ${isOpen ? 'w-60' : 'w-16'}`}>
             {/* Toggle Button */}
             <div className="h-16 flex items-center justify-center border-b">
-                <button onClick={() => setIsOpen(!isOpen)} className="text-2xl text-purple-600">
+                <button onClick={() => setIsOpen(!isOpen)} className="text-xl text-black">
                     <FaBars />
                 </button>
             </div>
@@ -22,7 +22,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     to="all-products"
                     data-tooltip-id={!isOpen ? "all-products" : ""}
                     className={({ isActive }) =>
-                        `flex items-center gap-3 p-2 rounded transition-all text-purple-600 hover:bg-purple-600 hover:text-white ${isActive ? 'bg-purple-600 text-white' : ''}`
+                        `flex items-center gap-3 p-2 rounded transition-all text-black hover:bg-red-600 hover:text-white ${isActive ? 'bg-red-600 text-white' : ''}`
                     }
                 >
                     <FaBoxes className="text-xl" />
@@ -35,7 +35,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     to="all-users"
                     data-tooltip-id={!isOpen ? "all-users" : ""}
                     className={({ isActive }) =>
-                        `flex items-center gap-3 p-2 rounded transition-all text-purple-600 hover:bg-purple-600 hover:text-white ${isActive ? 'bg-purple-600 text-white' : ''}`
+                        `flex items-center gap-3 p-2 rounded transition-all text-black hover:bg-red-600 hover:text-white ${isActive ? 'bg-red-600 text-white' : ''}`
                     }
                 >
                     <FaUsers className="text-xl" />
@@ -48,7 +48,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     to="allorder"
                     data-tooltip-id={!isOpen ? "all-orders" : ""}
                     className={({ isActive }) =>
-                        `flex items-center gap-3 p-2 rounded transition-all text-purple-600 hover:bg-purple-600 hover:text-white ${isActive ? 'bg-purple-600 text-white' : ''}`
+                        `flex items-center gap-3 p-2 rounded transition-all text-black hover:bg-red-600 hover:text-white ${isActive ? 'bg-red-600 text-white' : ''}`
                     }
                 >
                     <FaShoppingCart className="text-xl" />
@@ -61,7 +61,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     to="sells"
                     data-tooltip-id={!isOpen ? "summary" : ""}
                     className={({ isActive }) =>
-                        `flex items-center gap-3 p-2 rounded transition-all text-purple-600 hover:bg-purple-600 hover:text-white ${isActive ? 'bg-purple-600 text-white' : ''}`
+                        `flex items-center gap-3 p-2 rounded transition-all text-black hover:bg-red-600 hover:text-white ${isActive ? 'bg-red-600 text-white' : ''}`
                     }
                 >
                     <FaChartBar className="text-xl" />

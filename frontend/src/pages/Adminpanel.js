@@ -35,7 +35,7 @@ const Adminpanel = () => {
       </div>
 
       {/* Main Content Section */}
-      <main className={`flex-grow px-2 py-4 transition-all ${sidebarOpen ? 'ml-20' : 'ml-16'}`}>
+      <main className={`flex-grow px-2 py-4 transition-all ${sidebarOpen ? 'ml-6 mr-6' : 'ml-6 mr-6'}`}>
         <Outlet />
       </main>
     </div>
